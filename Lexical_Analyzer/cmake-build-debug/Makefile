@@ -122,6 +122,87 @@ Lexical_Analyzer/fast:
 	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/build
 .PHONY : Lexical_Analyzer/fast
 
+DFANode.obj: DFANode.cpp.obj
+
+.PHONY : DFANode.obj
+
+# target to build an object file
+DFANode.cpp.obj:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj
+.PHONY : DFANode.cpp.obj
+
+DFANode.i: DFANode.cpp.i
+
+.PHONY : DFANode.i
+
+# target to preprocess a source file
+DFANode.cpp.i:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.i
+.PHONY : DFANode.cpp.i
+
+DFANode.s: DFANode.cpp.s
+
+.PHONY : DFANode.s
+
+# target to generate assembly for a file
+DFANode.cpp.s:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.s
+.PHONY : DFANode.cpp.s
+
+Node.obj: Node.cpp.obj
+
+.PHONY : Node.obj
+
+# target to build an object file
+Node.cpp.obj:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj
+.PHONY : Node.cpp.obj
+
+Node.i: Node.cpp.i
+
+.PHONY : Node.i
+
+# target to preprocess a source file
+Node.cpp.i:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Node.cpp.i
+.PHONY : Node.cpp.i
+
+Node.s: Node.cpp.s
+
+.PHONY : Node.s
+
+# target to generate assembly for a file
+Node.cpp.s:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Node.cpp.s
+.PHONY : Node.cpp.s
+
+Transition.obj: Transition.cpp.obj
+
+.PHONY : Transition.obj
+
+# target to build an object file
+Transition.cpp.obj:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj
+.PHONY : Transition.cpp.obj
+
+Transition.i: Transition.cpp.i
+
+.PHONY : Transition.i
+
+# target to preprocess a source file
+Transition.cpp.i:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.i
+.PHONY : Transition.cpp.i
+
+Transition.s: Transition.cpp.s
+
+.PHONY : Transition.s
+
+# target to generate assembly for a file
+Transition.cpp.s:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.s
+.PHONY : Transition.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -158,6 +239,15 @@ help:
 	@echo ... Lexical_Analyzer
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... DFANode.obj
+	@echo ... DFANode.i
+	@echo ... DFANode.s
+	@echo ... Node.obj
+	@echo ... Node.i
+	@echo ... Node.s
+	@echo ... Transition.obj
+	@echo ... Transition.i
+	@echo ... Transition.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

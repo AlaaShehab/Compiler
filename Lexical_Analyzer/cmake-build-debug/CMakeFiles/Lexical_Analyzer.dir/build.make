@@ -69,19 +69,64 @@ CMakeFiles/Lexical_Analyzer.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lexical_Analyzer.dir/main.cpp.s"
 	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Projects\Compiler\Lexical_Analyzer\main.cpp -o CMakeFiles\Lexical_Analyzer.dir\main.cpp.s
 
+CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj: CMakeFiles/Lexical_Analyzer.dir/flags.make
+CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj: ../Node.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Lexical_Analyzer.dir\Node.cpp.obj -c D:\Projects\Compiler\Lexical_Analyzer\Node.cpp
+
+CMakeFiles/Lexical_Analyzer.dir/Node.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lexical_Analyzer.dir/Node.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Projects\Compiler\Lexical_Analyzer\Node.cpp > CMakeFiles\Lexical_Analyzer.dir\Node.cpp.i
+
+CMakeFiles/Lexical_Analyzer.dir/Node.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lexical_Analyzer.dir/Node.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Projects\Compiler\Lexical_Analyzer\Node.cpp -o CMakeFiles\Lexical_Analyzer.dir\Node.cpp.s
+
+CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj: CMakeFiles/Lexical_Analyzer.dir/flags.make
+CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj: ../Transition.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Lexical_Analyzer.dir\Transition.cpp.obj -c D:\Projects\Compiler\Lexical_Analyzer\Transition.cpp
+
+CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Projects\Compiler\Lexical_Analyzer\Transition.cpp > CMakeFiles\Lexical_Analyzer.dir\Transition.cpp.i
+
+CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Projects\Compiler\Lexical_Analyzer\Transition.cpp -o CMakeFiles\Lexical_Analyzer.dir\Transition.cpp.s
+
+CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj: CMakeFiles/Lexical_Analyzer.dir/flags.make
+CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj: ../DFANode.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Lexical_Analyzer.dir\DFANode.cpp.obj -c D:\Projects\Compiler\Lexical_Analyzer\DFANode.cpp
+
+CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Projects\Compiler\Lexical_Analyzer\DFANode.cpp > CMakeFiles\Lexical_Analyzer.dir\DFANode.cpp.i
+
+CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Projects\Compiler\Lexical_Analyzer\DFANode.cpp -o CMakeFiles\Lexical_Analyzer.dir\DFANode.cpp.s
+
 # Object files for target Lexical_Analyzer
 Lexical_Analyzer_OBJECTS = \
-"CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj"
+"CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj" \
+"CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj" \
+"CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj" \
+"CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj"
 
 # External object files for target Lexical_Analyzer
 Lexical_Analyzer_EXTERNAL_OBJECTS =
 
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj
+Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj
+Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj
+Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/build.make
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/linklibs.rsp
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/objects1.rsp
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Lexical_Analyzer.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Lexical_Analyzer.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Lexical_Analyzer.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
