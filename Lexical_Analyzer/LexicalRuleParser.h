@@ -17,8 +17,8 @@ public:
     void parseRules();
     //return char array of input that is sent as parameter
     vector<char> getAutomataInput ();
-    vector<Node> getAutotmatas ();
-    vector<Node> getAllAutomataNodes ();
+    vector<Node*> getAutotmatas ();
+    vector<Node*> getAllAutomataNodes ();
 
     //static const string LAMDA = "\L";
 
@@ -47,8 +47,8 @@ private:
     vector<string> split(string, char);
 
     //don't forget to remove duplicates
-    vector<Node> automataNodes;
-    vector<Node> automatas;
+    vector<Node*> automataNodes;
+    vector<Node*> automatas;
     vector<char> automataInputs;
 
 

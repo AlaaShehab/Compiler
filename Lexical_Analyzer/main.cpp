@@ -9,7 +9,7 @@
 using namespace std;
 
 int nodesID = 0;
-vector<Node> automatas;
+vector<Node *> automatas;
 vector<string> split(string str, char delimiter);
 void buildKeywordAutomataGraph(vector<string> keywords);
 int main() {
@@ -23,16 +23,16 @@ int main() {
     for (int i = 0; i < automatas.size(); i++) {
 
         cout << "start new automata " << endl;
-        Node node = automatas[i];
+        Node* node = automatas[i];
         char input;
-        node.getFirstTransition().getInput(&input);
+        node->getFirstTransition().getInput(&input);
 
-        cout << node.getName() << "  " << input  << node.isStart() << endl;
+        cout << node->getName() << "  " << input  << node->isStart() << endl;
 
         while (true) {
 
-            node.getFirstTransition().getInput(&input);
-            int name = node.getNext().getName();
+            node->getFirstTransition().getInput(&input);
+            int name = node->getNext()->getName();
 
         }
 
@@ -62,25 +62,25 @@ void buildKeywordAutomataGraph(vector<string> keywords) {
         int keySize = keywords[i].size();
         string current = keywords[i].c_str();
 
-        Node node = Node(nodesID);
+        Node* node;
         for (int c = 0; c < keySize; c++) {
             if (c == 0) {
-                node = Node(keywords[i], nodesID++);
+                node = new Node(keywords[i], nodesID++);
             } else {
-                node = node.getNext();
+                node = node->getNext();
             }
 
-            Node nextNode = Node(keywords[i], nodesID++);
+            Node* nextNode = new Node(keywords[i], nodesID++);
             char input = current[c];
 
             cout << current[c] << endl;
-            node.addTransition(Transition(&nextNode, &input));
+            node->addTransition(Transition(nextNode, &input));
             if (c == 0) {
                 automatas.push_back(node);
-                node.setStartNode(true);
-            } else if (c == keySize - 1) {
-                node.setAcceptorNode(true);
+                node->setStartNode(true);
             }
         }
+        node = node->getNext();
+        node->setAcceptorNode(true);
     }
 }

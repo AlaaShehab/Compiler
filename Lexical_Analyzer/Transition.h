@@ -19,7 +19,7 @@ public:
     Node setNext(Node*);
     Node setInput(char *);
 
-    Node getNext();
+    Node* getNode();
     void getInput(char *);
 
 private:

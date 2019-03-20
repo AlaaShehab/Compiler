@@ -82,26 +82,25 @@ void LexicalRuleParser::buildKeywordAutomataGraph(vector<string> keywords) {
         int keySize = keywords[i].size();
         string current = keywords[i].c_str();
 
-        Node node = Node(nodesID);
+        Node* node;
         for (int c = 0; c < keySize; c++) {
             if (c == 0) {
-                node = Node(keywords[i], nodesID++);
+                node = new Node(keywords[i], nodesID++);
             } else {
-                node = node.getNext();
+                node = node->getNext();
             }
-            Node nextNode = Node(keywords[i], nodesID++);
+            Node* nextNode = new Node(keywords[i], nodesID++);
             char input = current[c];
-            node.addTransition(Transition(&nextNode, &input));
+            node->addTransition(Transition(nextNode, &input));
             automataNodes.push_back(node);
             automataInputs.push_back(current[c]);
             if (c == 0) {
                 automatas.push_back(node);
-                node.setStartNode(true);
-            } else if (c == keySize - 1) {
-                node.setAcceptorNode(true);
+                node->setStartNode(true);
             }
-
         }
+        node = node->getNext();
+        node->setAcceptorNode(true);
     }
 }
 
@@ -116,12 +115,12 @@ void LexicalRuleParser::createPuncAutomata() {
 
 void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
     for (int i = 0; i < punct.size(); i++) {
-        Node node = Node(punct[i], nodesID++);
-        node.setStartNode(true);
-        Node nextNode = Node(punct[i], nodesID++);
-        nextNode.setAcceptorNode(true);
+        Node* node = new Node(punct[i], nodesID++);
+        node->setStartNode(true);
+        Node* nextNode = new Node(punct[i], nodesID++);
+        nextNode->setAcceptorNode(true);
         char input = (punct[i])[0];
-        node.addTransition(Transition(&nextNode, &input));
+        node->addTransition(Transition(nextNode, &input));
     }
 }
 
@@ -148,7 +147,7 @@ vector<string> LexicalRuleParser::split(string str, char delimiter) {
     return internal;
 }
 
-vector<Node> LexicalRuleParser::getAllAutomataNodes() {
+vector<Node *> LexicalRuleParser::getAllAutomataNodes() {
     return automataNodes;
 }
 
@@ -156,6 +155,6 @@ vector<char> LexicalRuleParser::getAutomataInput() {
     return automataInputs;
 }
 
-vector<Node> LexicalRuleParser::getAutotmatas() {
+vector<Node *> LexicalRuleParser::getAutotmatas() {
     return automatas;
 }

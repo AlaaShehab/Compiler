@@ -34,7 +34,7 @@ public:
     void addTransition (Transition);
     vector<Transition> getTransition();
     Transition getFirstTransition();
-    Node getNext ();
+    Node* getNext ();
 
 private:
     //variables

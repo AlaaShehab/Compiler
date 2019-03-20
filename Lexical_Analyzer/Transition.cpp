@@ -10,8 +10,7 @@
 using namespace std;
 
 Transition::Transition(Node* nextNode, char* input) {
-    Transition::nextNode = new Node(nextNode->getType(), nextNode->getName());
-    cout << nextNode << endl;
+    Transition::nextNode = nextNode;
     Transition::input = new char[strlen(input)+1];
     strcpy(Transition::input, input);
 }
@@ -24,8 +23,8 @@ void Transition::getInput(char * input) {
     strcpy(input, Transition::input);
 }
 
-Node Transition::getNext() {
-    return *nextNode;
+Node* Transition::getNode() {
+    return nextNode;
 }
 
 Node Transition::setInput(char * input) {
@@ -34,5 +33,5 @@ Node Transition::setInput(char * input) {
 }
 
 Node Transition::setNext(Node* nextNode) {
-    Transition::nextNode = new Node(nextNode->getType(), nextNode->getName());
+    Transition::nextNode = nextNode;
 }

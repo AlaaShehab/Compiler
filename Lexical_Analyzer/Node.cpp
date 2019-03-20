@@ -63,6 +63,6 @@ vector<Transition> Node::getTransition() {
 Transition Node::getFirstTransition() {
     return transitionList[0];
 }
-Node Node::getNext() {
-    return transitionList[0].getNext();
+Node* Node::getNext() {
+    return transitionList[0].getNode();
 }
