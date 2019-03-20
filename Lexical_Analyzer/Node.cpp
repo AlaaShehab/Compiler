@@ -60,3 +60,7 @@ void Node::addTransition(Transition transition) {
 list<Transition> Node::getTransition() {
     return transitionList;
 }
+
+Node Node::getNext() {
+    return transitionList.front().getNext();
+}

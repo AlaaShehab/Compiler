@@ -32,6 +32,7 @@ public:
 
     void addTransition (Transition);
     list<Transition> getTransition();
+    Node getNext ();
 
 private:
     //variables

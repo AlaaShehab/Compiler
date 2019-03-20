@@ -22,8 +22,8 @@ void Transition::getInput(char * input) {
     strcpy(input, Transition::input);
 }
 
-Node* Transition::getNext() {
-    return nextNode;
+Node Transition::getNext() {
+    return *nextNode;
 }
 
 Node Transition::setInput(char * input) {
