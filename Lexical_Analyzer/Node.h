@@ -15,6 +15,7 @@ public:
     //constructors
     Node (string type = "", int name = -1);
     Node (int name = -1);
+    Node ();
 
     //methods
     void setType(string);

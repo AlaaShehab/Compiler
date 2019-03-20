@@ -21,6 +21,10 @@ Node::Node (int name) {
     Node::acceptor = false;
     Node::start = false;
 }
+Node::Node () {
+    Node::acceptor = false;
+    Node::start = false;
+}
 
 //methods
 void Node::setType(string type) {
