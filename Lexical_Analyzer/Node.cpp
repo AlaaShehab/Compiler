@@ -60,7 +60,9 @@ void Node::addTransition(Transition transition) {
 vector<Transition> Node::getTransition() {
     return transitionList;
 }
-
+Transition Node::getFirstTransition() {
+    return transitionList[0];
+}
 Node Node::getNext() {
     return transitionList[0].getNext();
 }

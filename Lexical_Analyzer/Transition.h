@@ -12,7 +12,7 @@ class Node;
 class Transition {
 public:
     //constructors
-    Transition(Node*, char*);
+    Transition(Node *, char *);
     Transition();
 
     //methods
@@ -24,7 +24,7 @@ public:
 
 private:
     Node* nextNode;
-    char * input;
+    char* input;
 };
 
 

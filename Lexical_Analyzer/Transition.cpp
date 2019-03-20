@@ -5,11 +5,13 @@
 #include "Transition.h"
 #include "Node.h"
 #include <string.h>
+#include <iostream>
 
 using namespace std;
 
 Transition::Transition(Node* nextNode, char* input) {
-    Transition::nextNode = nextNode;
+    Transition::nextNode = new Node(nextNode->getType(), nextNode->getName());
+    cout << nextNode << endl;
     Transition::input = new char[strlen(input)+1];
     strcpy(Transition::input, input);
 }
@@ -32,5 +34,5 @@ Node Transition::setInput(char * input) {
 }
 
 Node Transition::setNext(Node* nextNode) {
-    Transition::nextNode = nextNode;
+    Transition::nextNode = new Node(nextNode->getType(), nextNode->getName());
 }

@@ -6,42 +6,12 @@
 
 #IncludeRegexTransform: 
 
-D:/Projects/Compiler/Lexical_Analyzer/DFANode.cpp
-DFANode.h
-D:/Projects/Compiler/Lexical_Analyzer/DFANode.h
-
-D:/Projects/Compiler/Lexical_Analyzer/DFANode.h
-Node.h
-D:/Projects/Compiler/Lexical_Analyzer/Node.h
-list
--
-
-D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.cpp
-LexicalRuleParser.h
-D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.h
-string.h
--
-
-D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.h
-string
--
-Node.h
-D:/Projects/Compiler/Lexical_Analyzer/Node.h
-
-D:/Projects/Compiler/Lexical_Analyzer/Node.cpp
-Node.h
 D:/Projects/Compiler/Lexical_Analyzer/Node.h
 string
 -
 list
 -
-Transition.h
-D:/Projects/Compiler/Lexical_Analyzer/Transition.h
-
-D:/Projects/Compiler/Lexical_Analyzer/Node.h
-string
--
-list
+vector
 -
 Transition.h
 D:/Projects/Compiler/Lexical_Analyzer/Transition.h
@@ -52,6 +22,8 @@ D:/Projects/Compiler/Lexical_Analyzer/Transition.h
 Node.h
 D:/Projects/Compiler/Lexical_Analyzer/Node.h
 string.h
+-
+iostream
 -
 
 D:/Projects/Compiler/Lexical_Analyzer/Transition.h

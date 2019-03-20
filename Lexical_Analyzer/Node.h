@@ -33,6 +33,7 @@ public:
 
     void addTransition (Transition);
     vector<Transition> getTransition();
+    Transition getFirstTransition();
     Node getNext ();
 
 private:
