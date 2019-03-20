@@ -44,18 +44,32 @@ private:
 
     void buildKeywordAutomataGraph(vector<string>);
     void buildPunctAutomataGraph(vector<string>);
+    void buildDefinAutomataGraph(string);
+
     vector<string> split(string, char);
 
-    //don't forget to remove duplicates
+    //TODO don't forget to remove duplicates
+    //TODO don't forget to minimize node so that no 2 epsilons are after each other
     vector<Node*> automataNodes;
     vector<Node*> automatas;
     vector<char> automataInputs;
 
+    /*
+     * used with definitions that are just helping | building parts of
+     * regular expressions|definitions
+    */
+    vector<string> helpingNotations;
+    vector<Node *> helpingAutomatas;
+
+    /*
+     * add name of a definition to list for later use
+     */
+    void getDefinitionNotation(string);
 
 
+    int precedence (char);
 
-
-
+    char* getRange(char, char);
 
 
 };

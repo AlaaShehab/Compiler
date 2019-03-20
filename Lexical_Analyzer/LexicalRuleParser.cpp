@@ -125,15 +125,67 @@ void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
 }
 
 void LexicalRuleParser::createExpAutomata() {
-    list<string>::iterator it;
-    for (it = expressionList.begin(); it != expressionList.end(); ++it){
-        string str = it->c_str();
-        //
-    }
+
 }
 
 void LexicalRuleParser::createDefinAutomata() {
+    list<string>::iterator it;
+    for (it = definitionList.begin(); it != definitionList.end(); ++it){
+        string str = it->c_str();
+        getDefinitionNotation(str);
+        //take string after '=' part
+        int startOfDef = str.find_first_of('=') + 1;
+        buildDefinAutomataGraph(str.substr(startOfDef, str.size() - startOfDef));
+    }
+}
 
+void LexicalRuleParser::getDefinitionNotation(string str) {
+    regex rgx("^\\w+");
+    smatch match;
+    const string input = str;
+    regex_search(input.begin(), input.end(), match, rgx);
+    helpingNotations.push_back(match.str(0));
+}
+
+void LexicalRuleParser::buildDefinAutomataGraph(string str) {
+
+    if (str.find('-') != std::string::npos) {  //find if definition is a range
+
+    } else {
+
+    }
+}
+
+int LexicalRuleParser::precedence(char operation) {
+    switch (operation) {
+        case '*':
+            return 3;
+        case '+':
+            return 3;
+        case ' ':
+            return 2;
+        case '-':
+            return 1;
+        case '|':
+            return 0;
+    }
+}
+
+char* LexicalRuleParser::getRange(char start, char end) {
+
+    //size of char array = range + 1 for null terminator
+        int charSize = end - start + 2;
+        char *range = new char[charSize];
+
+        int j = 0;
+        for (int i = start; i < end; i++) {
+
+            range[j++] = (char)i;
+        }
+        range[j++] = (char)end;
+        range[j] = '\0';
+
+        return range;
 }
 
 vector<string> LexicalRuleParser::split(string str, char delimiter) {

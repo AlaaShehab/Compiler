@@ -11,33 +11,32 @@ using namespace std;
 int nodesID = 0;
 vector<Node *> automatas;
 vector<string> split(string str, char delimiter);
-void buildKeywordAutomataGraph(vector<string> keywords);
+void buildKeywordAutomataGraph(vector<string> keywords);\
+char* getRange(char start, char end);
 int main() {
 
-    string str = "{ if then else while }";
-    vector<string> keywords = split(str.substr(1,str.size() - 2), ' ');
+    char* range;
+    range = getRange('a', 'd');
 
-    buildKeywordAutomataGraph(keywords);
-
-
-    for (int i = 0; i < automatas.size(); i++) {
-
-        cout << "start new automata " << endl;
-        Node* node = automatas[i];
-        char input;
-        node->getFirstTransition().getInput(&input);
-
-        cout << node->getName() << "  " << input  << node->isStart() << endl;
-
-        node->getFirstTransition().getInput(&input);
-        int name = node->getNext()->getName();
-
-
-    }
-
-
+    cout << range << endl;
     return 0;
 }
+
+char* getRange(char start, char end) {
+    int charSize = end - start + 2;
+
+    char *range = new char[charSize];
+    int j = 0;
+    for (int i = start; i < end; i++) {
+
+        range[j++] = (char)i;
+    }
+    range[j++] = end;
+    range[j] = '\0';
+
+    return range;
+}
+
 vector<string> split(string str, char delimiter) {
     vector<string> internal;
     stringstream ss(str);
