@@ -57,7 +57,7 @@ bool Node::isStart() {
 void Node::addTransition(Transition transition) {
     transitionList.push_back(transition);
 }
-list<Transition> Node::getTransition() {
+vector<Transition> Node::getTransition() {
     return transitionList;
 }
 

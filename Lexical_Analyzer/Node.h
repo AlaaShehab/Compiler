@@ -6,6 +6,7 @@
 #define LEXICAL_ANALYZER_NODE_H
 #include <string>
 #include <list>
+#include <vector>
 #include "Transition.h"
 
 using namespace std;
@@ -31,7 +32,7 @@ public:
     bool isStart();
 
     void addTransition (Transition);
-    list<Transition> getTransition();
+    vector<Transition> getTransition();
     Node getNext ();
 
 private:
@@ -42,7 +43,7 @@ private:
     bool start;
 
     //list of transitions for a node
-    list<Transition> transitionList;
+    vector<Transition> transitionList;
 
 };
 
