@@ -62,5 +62,5 @@ vector<Transition> Node::getTransition() {
 }
 
 Node Node::getNext() {
-    return transitionList.front().getNext();
+    return transitionList[0].getNext();
 }
