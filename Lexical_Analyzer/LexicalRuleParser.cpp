@@ -77,7 +77,7 @@ void LexicalRuleParser::createKeywordAutomata() {
 }
 
 void LexicalRuleParser::buildKeywordAutomataGraph(vector<string> keywords) {
-    //there's a problem in input as char * and problem in id value
+    //there's a problem in input as char *
     for (int i = 0; i < keywords.size(); i++) {
         int keySize = keywords[i].size();
         string current = keywords[i].c_str();
@@ -125,7 +125,11 @@ void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
 }
 
 void LexicalRuleParser::createExpAutomata() {
-
+    list<string>::iterator it;
+    for (it = expressionList.begin(); it != expressionList.end(); ++it){
+        string str = it->c_str();
+        //
+    }
 }
 
 void LexicalRuleParser::createDefinAutomata() {

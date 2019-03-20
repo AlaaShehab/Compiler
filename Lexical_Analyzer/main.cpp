@@ -29,12 +29,8 @@ int main() {
 
         cout << node->getName() << "  " << input  << node->isStart() << endl;
 
-        while (true) {
-
-            node->getFirstTransition().getInput(&input);
-            int name = node->getNext()->getName();
-
-        }
+        node->getFirstTransition().getInput(&input);
+        int name = node->getNext()->getName();
 
 
     }
