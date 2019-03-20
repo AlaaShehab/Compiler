@@ -18,9 +18,8 @@ Transition::Transition(Node* nextNode, char* input) {
 Transition::Transition() {
 }
 
-void Transition::getInput(char * input) {
-    input = new char[strlen(Transition::input)+1];
-    strcpy(input, Transition::input);
+char* Transition::getInput() {
+    return input;
 }
 
 Node* Transition::getNode() {

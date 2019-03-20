@@ -20,7 +20,7 @@ public:
     Node setInput(char *);
 
     Node* getNode();
-    void getInput(char *);
+    char* getInput();
 
     static const char EPSILON = '!';
 private:
