@@ -13,9 +13,13 @@ using namespace std;
 Node::Node (string type, int name) {
     Node::type = type;
     Node::name = name;
+    Node::acceptor = false;
+    Node::start = false;
 }
 Node::Node (int name) {
     Node::name = name;
+    Node::acceptor = false;
+    Node::start = false;
 }
 
 //methods
