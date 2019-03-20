@@ -149,6 +149,33 @@ DFANode.cpp.s:
 	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.s
 .PHONY : DFANode.cpp.s
 
+LexicalRuleParser.obj: LexicalRuleParser.cpp.obj
+
+.PHONY : LexicalRuleParser.obj
+
+# target to build an object file
+LexicalRuleParser.cpp.obj:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.obj
+.PHONY : LexicalRuleParser.cpp.obj
+
+LexicalRuleParser.i: LexicalRuleParser.cpp.i
+
+.PHONY : LexicalRuleParser.i
+
+# target to preprocess a source file
+LexicalRuleParser.cpp.i:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.i
+.PHONY : LexicalRuleParser.cpp.i
+
+LexicalRuleParser.s: LexicalRuleParser.cpp.s
+
+.PHONY : LexicalRuleParser.s
+
+# target to generate assembly for a file
+LexicalRuleParser.cpp.s:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.s
+.PHONY : LexicalRuleParser.cpp.s
+
 Node.obj: Node.cpp.obj
 
 .PHONY : Node.obj
@@ -242,6 +269,9 @@ help:
 	@echo ... DFANode.obj
 	@echo ... DFANode.i
 	@echo ... DFANode.s
+	@echo ... LexicalRuleParser.obj
+	@echo ... LexicalRuleParser.i
+	@echo ... LexicalRuleParser.s
 	@echo ... Node.obj
 	@echo ... Node.i
 	@echo ... Node.s

@@ -88,6 +88,12 @@
 		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/DFANode.h">
 			<Option target="Lexical_Analyzer"/>
 		</Unit>
+		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.cpp">
+			<Option target="Lexical_Analyzer"/>
+		</Unit>
+		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.h">
+			<Option target="Lexical_Analyzer"/>
+		</Unit>
 		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/Node.cpp">
 			<Option target="Lexical_Analyzer"/>
 		</Unit>

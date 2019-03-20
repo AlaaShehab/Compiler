@@ -8,21 +8,22 @@
 #include "Node.h"
 #include <string>
 
+class Node;
 class Transition {
 public:
     //constructors
-    Transition (Node, char*);
+    Transition(Node*, char*);
     Transition();
 
     //methods
-    Node setNext(Node);
+    Node setNext(Node*);
     Node setInput(char *);
 
-    Node getNext();
+    Node* getNext();
     void getInput(char *);
 
 private:
-    Node nextNode;
+    Node* nextNode;
     char * input;
 };
 

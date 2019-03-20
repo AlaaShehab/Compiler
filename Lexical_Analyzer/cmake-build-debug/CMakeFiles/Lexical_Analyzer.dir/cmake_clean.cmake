@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj"
   "CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj"
   "CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj"
+  "CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.obj"
   "Lexical_Analyzer.pdb"
   "Lexical_Analyzer.exe"
   "Lexical_Analyzer.exe.manifest"

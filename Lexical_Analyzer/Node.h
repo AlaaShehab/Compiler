@@ -9,11 +9,12 @@
 #include "Transition.h"
 
 using namespace std;
+class Transition;
 class Node {
 public:
     //constructors
-    Node (string, int);
-    Node (int);
+    Node (string type = "", int name = -1);
+    Node (int name = -1);
 
     //methods
     void setType(string);
