@@ -16,8 +16,8 @@ public:
     Transition();
 
     //methods
-    Node setNext(Node*);
-    Node setInput(char *);
+    void setNext(Node*);
+    void setInput(char *);
 
     Node* getNode();
     char* getInput();

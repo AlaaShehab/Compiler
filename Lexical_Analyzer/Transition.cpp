@@ -26,11 +26,11 @@ Node* Transition::getNode() {
     return nextNode;
 }
 
-Node Transition::setInput(char * input) {
+void Transition::setInput(char * input) {
     Transition::input = new char[strlen(input)+1];
     strcpy(Transition::input, input);
 }
 
-Node Transition::setNext(Node* nextNode) {
+void Transition::setNext(Node* nextNode) {
     Transition::nextNode = nextNode;
 }
