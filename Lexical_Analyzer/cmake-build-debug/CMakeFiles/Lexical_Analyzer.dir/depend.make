@@ -19,6 +19,7 @@ CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj: ../Node.h
 CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj: ../Transition.cpp
 CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj: ../Transition.h
 
+CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj: ../LexicalRuleParser.h
 CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj: ../Node.h
 CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj: ../Transition.h
 CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj: ../main.cpp
