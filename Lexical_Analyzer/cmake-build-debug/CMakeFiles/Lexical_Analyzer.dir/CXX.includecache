@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.h
+string
+-
+Node.h
+D:/Projects/Compiler/Lexical_Analyzer/Node.h
+stack
+-
+vector
+-
+
 D:/Projects/Compiler/Lexical_Analyzer/Node.h
 string
 -
@@ -33,8 +43,12 @@ list
 -
 regex
 -
+stack
+-
 Node.h
 D:/Projects/Compiler/Lexical_Analyzer/Node.h
+LexicalRuleParser.h
+D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.h
 Transition.h
 D:/Projects/Compiler/Lexical_Analyzer/Transition.h
 

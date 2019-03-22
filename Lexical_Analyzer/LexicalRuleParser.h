@@ -21,10 +21,11 @@ public:
     vector<Node*> getAllAutomataNodes ();
 
     //static const string LAMDA = "\L";
-
+    char EPSILON = '!';
 
 
 private:
+
     int nodesID;
     list<string> rules;
 
@@ -50,6 +51,8 @@ private:
 
     //TODO don't forget to remove duplicates
     //TODO don't forget to minimize node so that no 2 epsilons are after each other
+    //TODO don't forget to add all nodes at the end\
+    // TODO make automata Input a set
     vector<Node*> automataNodes;
     vector<Node*> automatas;
     vector<char> automataInputs;
@@ -68,10 +71,25 @@ private:
 
 
     int precedence (char);
-
     char* getRange(char, char);
 
 
+    Node * concatenateExpression(Node *, Node *);
+    Node * orExpression(Node *, Node *);
+    Node * positiveClosureExp(Node *);
+    Node * kleenClosureExp(Node *);
+    Node * rangeExpression(Node *, Node *);
+
+    Node * cloneAutomata(Node *);
+
+    void buildingBlockExp(char);
+    void checkOperandValidity(string);
+    void perfromOperation();
+
+    int findDefinition (string);
+    //used for expression/definition evaluation
+    stack<Node*> operands;
+    stack<char> operators;
 };
 
 
