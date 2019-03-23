@@ -21,7 +21,7 @@ public:
     vector<Node*> getAllAutomataNodes ();
 
     //static const string LAMDA = "\L";
-    char EPSILON = '!';
+    char EPSILON[2] = "L";
 
 
 private:
@@ -45,7 +45,7 @@ private:
 
     void buildKeywordAutomataGraph(vector<string>);
     void buildPunctAutomataGraph(vector<string>);
-    void buildDefinAutomataGraph(string);
+    void buildDEAutomataGraph(string);
 
     vector<string> split(string, char);
 
@@ -67,7 +67,7 @@ private:
     /*
      * add name of a definition to list for later use
      */
-    void getDefinitionNotation(string);
+    string getDEtype(string);
 
 
     int precedence (char);
@@ -82,11 +82,16 @@ private:
 
     Node * cloneAutomata(Node *);
 
-    void buildingBlockExp(char);
+    Node * bfsEndNodeSearch(Node *);
+    void buildSingleAlnum(char);
     void checkOperandValidity(string);
     void perfromOperation();
 
     int findDefinition (string);
+    bool isOperation(char);
+    void precedenceOpHandler(char);
+
+    bool whiteSpaceIsOperator(int, string);
     //used for expression/definition evaluation
     stack<Node*> operands;
     stack<char> operators;
