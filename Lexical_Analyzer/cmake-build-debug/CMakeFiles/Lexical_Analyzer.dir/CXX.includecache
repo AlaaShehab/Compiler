@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-D:/Projects/Compiler/Lexical_Analyzer/Node.h
+/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/Node.h
 string
 -
 list
@@ -14,15 +14,15 @@ list
 vector
 -
 Transition.h
-D:/Projects/Compiler/Lexical_Analyzer/Transition.h
+/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/Transition.h
 
-D:/Projects/Compiler/Lexical_Analyzer/Transition.h
+/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/Transition.h
 Node.h
-D:/Projects/Compiler/Lexical_Analyzer/Node.h
+/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/Node.h
 string
 -
 
-D:/Projects/Compiler/Lexical_Analyzer/main.cpp
+/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/main.cpp
 iostream
 -
 string
@@ -34,7 +34,7 @@ list
 regex
 -
 Node.h
-D:/Projects/Compiler/Lexical_Analyzer/Node.h
+/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/Node.h
 Transition.h
-D:/Projects/Compiler/Lexical_Analyzer/Transition.h
+/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/Transition.h
 

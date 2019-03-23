@@ -11,13 +11,12 @@ using namespace std;
 int nodesID = 0;
 vector<Node *> automatas;
 vector<string> split(string str, char delimiter);
-void buildKeywordAutomataGraph(vector<string> keywords);\
+void buildKeywordAutomataGraph(vector<string> keywords);
 char* getRange(char start, char end);
 int main() {
 
     char* range;
     range = getRange('a', 'd');
-
     cout << range << endl;
     return 0;
 }
