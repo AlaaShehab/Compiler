@@ -66,3 +66,6 @@ Transition Node::getFirstTransition() {
 Node* Node::getNext() {
     return transitionList[0].getNode();
 }
+vector<Node> Node::getEpslonClosure() {
+    return epslonClosure;
+}

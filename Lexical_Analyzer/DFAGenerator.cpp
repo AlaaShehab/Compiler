@@ -4,6 +4,11 @@
 
 #include "DFAGenerator.h"
 
+void DFAGenerator::initializeClousreLists(vector<Node *>) {
+
+}
 vector<Node*>  DFAGenerator::generateDFATable(vector<Node *>) {
 
 }
+
+
