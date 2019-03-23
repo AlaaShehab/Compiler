@@ -52,23 +52,3 @@ D:/Projects/Compiler/Lexical_Analyzer/Node.h
 string
 -
 
-D:/Projects/Compiler/Lexical_Analyzer/main.cpp
-iostream
--
-string
--
-fstream
--
-list
--
-regex
--
-stack
--
-Node.h
-D:/Projects/Compiler/Lexical_Analyzer/Node.h
-LexicalRuleParser.h
-D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.h
-Transition.h
-D:/Projects/Compiler/Lexical_Analyzer/Transition.h
-

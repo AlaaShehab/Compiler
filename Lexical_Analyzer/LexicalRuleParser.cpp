@@ -192,25 +192,39 @@ void LexicalRuleParser::buildDEAutomataGraph(string definition) {
     stack<Node *>().swap(operands);
 
     string operand;
+    bool concatenate = false;
     int size = definition.size();
     for (int i = 0; i < definition.size(); i++) {
         char ch = definition[i];
 
-        if (ch == '\\' && definition[i+1] == EPSILON[0]) {
+        if (ch == '\\') {
+            if (i-1 >= 0 && definition[i-1] == '\\') {
+                buildSingleAlnum(ch);
+            }
+        } else if (ch == EPSILON[0] && i-1 >= 0&& definition[i - 1] == '\\') {
+            concatenate = false;
             buildSingleAlnum(EPSILON[0]);
-        } else if (ch == '\\') {
-            //skip characters
         } else if (isalpha(ch)) {
+            concatenate = false;
             operand += ch;
         } else if (isdigit(ch)) {
+            concatenate = false;
             operand = "";
             buildSingleAlnum(ch);
-        } else if (!isOperation(ch) || (ch == '\\' && definition[i+1] != EPSILON[0])) {
+        } else if (isOperation(ch) && i-1 >=0 && definition[i-1] == '\\') {
             buildSingleAlnum(ch);
-            if (i-1 >= 0 &&definition[i-1] != '\\' && !isalnum(definition[i-1]) && !isOperation(definition[i-1])) {
+            if (concatenate) {
                 precedenceOpHandler(' ');
             }
+            concatenate = true;
+        } else if (!isOperation(ch)) {
+            buildSingleAlnum(ch);
+            if (concatenate) {
+                precedenceOpHandler(' ');
+            }
+            concatenate = true;
         } else if (ch == ' ') {
+            concatenate = false;
             if (operand != "") {
                 checkOperandValidity(operand);
                 operand = "";
@@ -219,6 +233,7 @@ void LexicalRuleParser::buildDEAutomataGraph(string definition) {
                 precedenceOpHandler(ch);
             }
         } else {
+            concatenate = false;
             if (operand != "") {
                 checkOperandValidity(operand);
                 operand = "";
