@@ -8,6 +8,6 @@ void DFANode::addName(int name) {
     nodeNameList.push_back(name);
 }
 
-list<int> DFANode::getNodeNameList() {
+vector<int> DFANode::getNodeNameList() {
     return nodeNameList;
 }

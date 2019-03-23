@@ -13,10 +13,11 @@ class DFANode: public Node{
 public:
 
     void addName (int);
-    list<int> getNodeNameList();
+    vector<int> getNodeNameList();
 
 private:
-    list<int> nodeNameList;
+    vector<int> nodeNameList;
+
 
 
 };
