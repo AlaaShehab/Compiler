@@ -10,7 +10,7 @@
 
 class DFAGenerator {
 public:
-    void initializeClousreLists(vector<Node*>);
+    void initializeClosureLists(vector<Node*>);
     vector<Node*> generateDFATable(vector<Node*>);
 
 
