@@ -22,7 +22,7 @@ public:
     Node* getNode();
     char* getInput();
 
-    static const char EPSILON = '!';
+    char EPSILON[2] = "!";
 private:
     Node* nextNode;
     char* input;

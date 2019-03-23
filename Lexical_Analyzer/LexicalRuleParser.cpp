@@ -9,6 +9,7 @@
 #include <regex>
 #include <stack>
 #include <vector>
+#include <queue>
 #include "Node.h"
 
 using namespace std;
@@ -20,7 +21,8 @@ void LexicalRuleParser::readfile(string fileName) {
     {
         while (getline(rulesFile,line))
         {
-            rules.push_back(line);
+            findRuleType(line);
+           // rules.push_back(line);
         }
         rulesFile.close();
     } else {
@@ -59,11 +61,13 @@ void LexicalRuleParser::findRuleType(string rule) {
 
 void LexicalRuleParser::parseRules() {
 
+   // groupRules();
     nodesID = 0;
     createKeywordAutomata();
     createPuncAutomata();
-    createExpAutomata();
     createDefinAutomata();
+    createExpAutomata();
+
 }
 
 void LexicalRuleParser::createKeywordAutomata() {
@@ -71,6 +75,7 @@ void LexicalRuleParser::createKeywordAutomata() {
 
     for (it = keywordList.begin(); it != keywordList.end(); ++it){
         string str = it->c_str();
+        //split keywords and ignore the surrounding brackets
         vector<string> keywords = split(str.substr(1,str.size() - 2), ' ');
         buildKeywordAutomataGraph(keywords);
     }
@@ -119,64 +124,99 @@ void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
     char input[2];
     input[1] = '\0';
     for (int i = 0; i < punct.size(); i++) {
-        Node* node = new Node(punct[i], nodesID++);
+        string temp = (punct[i]).substr(punct[i].length() - 1, 1);
+        Node* node = new Node(temp, nodesID++);
         node->setStartNode(true);
-        Node* nextNode = new Node(punct[i], nodesID++);
+        Node* nextNode = new Node(temp, nodesID++);
         nextNode->setAcceptorNode(true);
-        input[0] = (punct[i])[0];
+        input[0] = temp[0];
         node->addTransition(Transition(nextNode, input));
+
+        automatas.push_back(node);
+        automataNodes.push_back(node);
+        automataNodes.push_back(nextNode);
+        automataInputs.push_back(input[0]);
     }
 }
 
 void LexicalRuleParser::createExpAutomata() {
+    list<string>::iterator it;
+    for (it = expressionList.begin(); it != expressionList.end(); ++it){
+        string str = it->c_str();
+        string type = getDEtype(str);
+        //take string after ':' part
+        int startOfDef = str.find_first_of(':') + 1;
+        str = str.substr(startOfDef, str.size() - startOfDef);
+        int skipWhitespace = str.find_first_not_of(' ');
 
+        buildDEAutomataGraph(str.substr(skipWhitespace, str.size() - skipWhitespace));
+
+        Node * node = bfsEndNodeSearch(operands.top());
+        node->setType(type);
+        operands.top()->setType(type);
+        automatas.push_back(operands.top());
+    }
 }
 
 void LexicalRuleParser::createDefinAutomata() {
-    //TODO can be minimized by making one method for both this and expression
     list<string>::iterator it;
     for (it = definitionList.begin(); it != definitionList.end(); ++it){
         string str = it->c_str();
-        getDefinitionNotation(str);
+        string type = getDEtype(str);
+        helpingNotations.push_back(type);
         //take string after '=' part
         int startOfDef = str.find_first_of('=') + 1;
         str = str.substr(startOfDef, str.size() - startOfDef);
         int skipWhitespace = str.find_first_not_of(' ');
 
-        buildDefinAutomataGraph(str.substr(skipWhitespace, str.size() - skipWhitespace));
+        buildDEAutomataGraph(str.substr(skipWhitespace, str.size() - skipWhitespace));
+
+        Node * node = bfsEndNodeSearch(operands.top());
+        node->setType(type);
+        operands.top()->setType(type);
+        helpingAutomatas.push_back(operands.top());
     }
 }
 
-void LexicalRuleParser::getDefinitionNotation(string str) {
+string LexicalRuleParser::getDEtype(string str) {
     regex rgx("^\\w+");
     smatch match;
     const string input = str;
     regex_search(input.begin(), input.end(), match, rgx);
-    helpingNotations.push_back(match.str(0));
+
+    return match.str(0);
 }
 
-void LexicalRuleParser::buildDefinAutomataGraph(string definition) {
+void LexicalRuleParser::buildDEAutomataGraph(string definition) {
     stack<char>().swap(operators);
     stack<Node *>().swap(operands);
 
     string operand;
+    int size = definition.size();
     for (int i = 0; i < definition.size(); i++) {
         char ch = definition[i];
 
-        if (isalpha(ch)) {
+        if (ch == '\\' && definition[i+1] == EPSILON[0]) {
+            buildSingleAlnum(EPSILON[0]);
+        } else if (ch == '\\') {
+            //skip characters
+        } else if (isalpha(ch)) {
             operand += ch;
         } else if (isdigit(ch)) {
             operand = "";
-            buildingBlockExp(ch);
+            buildSingleAlnum(ch);
+        } else if (!isOperation(ch) || (ch == '\\' && definition[i+1] != EPSILON[0])) {
+            buildSingleAlnum(ch);
+            if (i-1 >= 0 &&definition[i-1] != '\\' && !isalnum(definition[i-1]) && !isOperation(definition[i-1])) {
+                precedenceOpHandler(' ');
+            }
         } else if (ch == ' ') {
             if (operand != "") {
                 checkOperandValidity(operand);
                 operand = "";
             }
-            if ((isalnum(definition[i-1]) && !isalnum(definition[i+1]))
-                    || (isalnum((definition[i-1])) && definition[i+1] == '(')
-                    || (definition[i-1] == ')') && isalnum((definition[i+1]))){
-                operators.push(' ');
+            if (whiteSpaceIsOperator(i, definition)){
+                precedenceOpHandler(ch);
             }
         } else {
             if (operand != "") {
@@ -188,36 +228,62 @@ void LexicalRuleParser::buildDefinAutomataGraph(string definition) {
                     perfromOperation();
                 }
                 operators.pop();
-            } else if (precedence(operators.top()) > precedence(ch)
-                    || precedence(operators.top()) == precedence(ch)) {
-                while (precedence(operators.top()) > precedence(ch)
-                       || precedence(operators.top()) == precedence(ch)) {
+            } else if (ch == '(') {
+                while (!operators.empty() && precedence(operators.top()) == 3) {
                     perfromOperation();
                 }
                 operators.push(ch);
-            } else if (precedence(operators.top()) < precedence(ch)) {
+            } else if (!operators.empty() && (precedence(operators.top()) > precedence(ch)
+                    || precedence(operators.top()) == precedence(ch))) {
+                precedenceOpHandler(ch);
+            } else if (operators.empty() || precedence(operators.top()) < precedence(ch)) {
                 operators.push(ch);
             }
 
         }
     }
-
+    if (operand != "") {
+        checkOperandValidity(operand);
+        operand = "";
+    }
+    while(!operators.empty()) {
+        perfromOperation();
+    }
     if (operands.size() > 1) {
-        Node * node2 = operands.top();
-        operands.pop();
-        Node * node1 = operands.top();
-        operands.pop();
-        operands.push(concatenateExpression(node1, node2));
+        operators.push(' ');
+        perfromOperation();
+    }
+}
+
+void LexicalRuleParser::precedenceOpHandler(char ch) {
+    while (!operators.empty() && (precedence(operators.top()) > precedence(ch)
+                                  || precedence(operators.top()) == precedence(ch))
+           && operators.top() != '(') {
+        perfromOperation();
+        if (!operators.empty() && operators.top() == '(') {
+            operators.pop();
+        }
+    }
+    operators.push(ch);
+}
+
+Node* LexicalRuleParser::bfsEndNodeSearch(Node * start) {
+    queue<Node *> q;
+    q.push(start);
+
+    while (!q.empty()) {
+        Node* node = q.front();
+        q.pop();
+        if (node->isAcceptor()) {
+            return node;
+        }
+        vector<Transition> trans = node->getTransition();
+        for (int i = 0; i < trans.size(); i++) {
+            q.push(trans[i].getNode());
+        }
     }
 
-    Node * node = operands.top();
-    while (!(node->isAcceptor())) {
-        node = node->getNext();
-    }
-    string type = helpingNotations[helpingNotations.size() - 1];
-    node->setType(type);
-    operands.top()->setType(type);
-    helpingAutomatas.push_back(operands.top());
+    return nullptr;
 }
 
 void LexicalRuleParser::perfromOperation() {
@@ -225,34 +291,32 @@ void LexicalRuleParser::perfromOperation() {
     operands.pop();
     char op = operators.top();
     operators.pop();
-    Node * node2 = operands.top();
+    Node * node2;
+    if (!operands.empty()) {
+        node2 = operands.top();
+    }
     if (op == ' ') {
         operands.pop();
-        concatenateExpression(node2, node1);
+        operands.push(concatenateExpression(node2, node1));
     } else if (op == '|') {
-        orExpression(node1, node2);
         operands.pop();
+        operands.push(orExpression(node1, node2));
     } else if (op == '*') {
-        kleenClosureExp(node1);
+        operands.push(kleenClosureExp(node1));
     } else if (op == '+') {
-        positiveClosureExp(node1);
+        operands.push(positiveClosureExp(node1));
     } else if (op == '-') {
-        rangeExpression(node2, node1);
         operands.pop();
+        operands.push(rangeExpression(node2, node1));
     }
 
 }
 
 Node * LexicalRuleParser::concatenateExpression(Node * node1, Node * node2) {
-    char *ep;
-    ep = &EPSILON;
+    Node * temp = bfsEndNodeSearch(node1);
 
-    Node * temp = node1;
-    while (!(temp->isAcceptor())) {
-        temp = temp->getNext();
-    }
     temp->setAcceptorNode(false);
-    temp->addTransition(Transition(node2, ep));
+    temp->addTransition(Transition(node2, EPSILON));
     node2->setStartNode(false);
 
     return node1;
@@ -260,74 +324,69 @@ Node * LexicalRuleParser::concatenateExpression(Node * node1, Node * node2) {
 
 Node * LexicalRuleParser::positiveClosureExp(Node * start) {
 
-    Node * node = cloneAutomata(start);
-    node = kleenClosureExp(node);
-    concatenateExpression(start, node);
+    Node * clonedNode = cloneAutomata(start);
+    Node * node = kleenClosureExp(clonedNode);
+    Node* n = concatenateExpression(start, node);
+    return n;
 }
 
 Node* LexicalRuleParser::cloneAutomata(Node * start) {
     Node * newNode = new Node (start->getType(), nodesID++);
+    newNode->setAcceptorNode(start->isAcceptor());
+    newNode->setStartNode(start->isStart());
     vector<Transition> trans = start->getTransition();
     for (int i = 0; i < trans.size(); i++) {
         Node * n = cloneAutomata(trans[i].getNode());
         char* input = new char[strlen(trans[i].getInput())+1];
         strcpy(input, trans[i].getInput());
-        Transition* t = new Transition (n, input);
+        newNode->addTransition(Transition (n, input));
     }
     return newNode;
 }
 
 Node * LexicalRuleParser::kleenClosureExp(Node * start) {
-    char *ep;
-    ep = &EPSILON;
+
     Node * newStart = new Node(nodesID++);
     start->setStartNode(false);
     newStart->setStartNode(true);
 
-    newStart->addTransition(Transition(start, ep));
+    newStart->addTransition(Transition(start, EPSILON));
 
     Node * newEnd = new Node(nodesID++);
     newEnd->setAcceptorNode(true);
 
-    Node * temp = start;
-    while (!(temp->isAcceptor())) {
-        temp = temp->getNext();
-    }
+    Node * temp = bfsEndNodeSearch(start);;
+
     temp->setAcceptorNode(false);
-    temp->addTransition(Transition(start, ep));
-    temp->addTransition(Transition(newEnd, ep));
-    newStart->addTransition(Transition(newEnd, ep));
+    temp->addTransition(Transition(start, EPSILON));
+    temp->addTransition(Transition(newEnd, EPSILON));
+    newStart->addTransition(Transition(newEnd, EPSILON));
 
     return newStart;
 
 }
 
 Node* LexicalRuleParser::orExpression(Node * node1, Node * node2) {
-    char *ep;
-    ep = &EPSILON;
 
     Node * newStart = new Node(nodesID++);
     node1->setStartNode(false);
     node2->setStartNode(false);
     newStart->setStartNode(true);
 
-    newStart->addTransition(Transition(node1, ep));
-    newStart->addTransition(Transition(node2, ep));
+    newStart->addTransition(Transition(node1, EPSILON));
+    newStart->addTransition(Transition(node2, EPSILON));
 
     Node * newEnd = new Node(nodesID++);
     newEnd->setAcceptorNode(true);
-    Node * temp = node1;
-    while (!(temp->isAcceptor())) {
-        temp = temp->getNext();
-    }
-    temp->addTransition(Transition(newEnd, ep));
+
+    //find end node
+    Node * temp = bfsEndNodeSearch(node1);
+    temp->addTransition(Transition(newEnd, EPSILON));
     temp->setAcceptorNode(false);
 
-    temp = node2;
-    while (!(temp->isAcceptor())) {
-        temp = temp->getNext();
-    }
-    temp->addTransition(Transition(newEnd, ep));
+    //find end node
+    temp = bfsEndNodeSearch(node2);
+    temp->addTransition(Transition(newEnd, EPSILON));
     temp->setAcceptorNode(false);
 
     return newStart;
@@ -350,9 +409,9 @@ Node * LexicalRuleParser::rangeExpression(Node * node1, Node * node2) {
 void LexicalRuleParser::checkOperandValidity(string input) {
     int index = findDefinition(input);
     if (input.size() == 1 && isalpha(input[0])) {
-        buildingBlockExp(input[0]);
+        buildSingleAlnum(input[0]);
     } else if (input.size() > 1 && index >= 0) {
-        operands.push(helpingAutomatas[index]);
+        operands.push(cloneAutomata(helpingAutomatas[index]));
     }
 }
 
@@ -366,7 +425,7 @@ int LexicalRuleParser::findDefinition(string definitionName) {
         return -1;
 }
 
-void LexicalRuleParser::buildingBlockExp(char input) {
+void LexicalRuleParser::buildSingleAlnum(char input) {
     char inputChar[2];
     inputChar[1] = '\0';
     Node* node = new Node(nodesID++);
@@ -395,6 +454,24 @@ int LexicalRuleParser::precedence(char operation) {
     }
 }
 
+bool LexicalRuleParser::isOperation(char ch) {
+    if (ch == '*' || ch == '+' || ch == '-' || ch == ' '
+        || ch == '|' || ch == '(' || ch == ')') {
+        return true;
+    }
+    return false;
+}
+
+bool LexicalRuleParser::whiteSpaceIsOperator(int i, string definition) {
+    if (definition[i-1] == '(' || definition[i+1] == ')'
+        || definition[i-1] == '|' || definition[i+1] == '|'
+        || definition[i-1] == '-' || definition[i+1] == '-'
+        || i+1 >= definition.size()) {
+        return false;
+    }
+    return true;
+
+}
 char* LexicalRuleParser::getRange(char start, char end) {
 
     //size of char array = range + 1 for null terminator
@@ -425,6 +502,16 @@ vector<string> LexicalRuleParser::split(string str, char delimiter) {
     }
 
     return internal;
+}
+
+bool LexicalRuleParser::isDigit(char ch) {
+    if (ch == '0' || ch == '1' || ch == '2'
+        || ch == '3' || ch == '4' || ch == '5'
+        || ch == '6' || ch == '7' || ch == '8'
+        || ch == '9') {
+        return true;
+    }
+    return false;
 }
 
 vector<Node *> LexicalRuleParser::getAllAutomataNodes() {
