@@ -16,13 +16,13 @@ public:
     Transition();
 
     //methods
-    void setNext(Node*);
-    void setInput(char *);
+    Node setNext(Node*);
+    Node setInput(char *);
 
     Node* getNode();
     char* getInput();
 
-    char EPSILON[2] = "!";
+    static const char EPSILON = '!';
 private:
     Node* nextNode;
     char* input;

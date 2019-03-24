@@ -21,13 +21,8 @@ public:
     vector<Node*> getAutotmatas ();
     vector<Node*> getAllAutomataNodes ();
 
-<<<<<<< HEAD
-    //static const string LAMDA = "\L";
-    char EPSILON[2] = "\L";
-=======
     Node* getNFAstartNode();
     char EPSILON[2] = "~";
->>>>>>> parsingTxtFile
 
 
 private:
@@ -73,10 +68,10 @@ private:
 
     vector<string> split(string, char);
 
-    //TODO don't forget to remove duplicates from input
+    //TODO don't forget to remove duplicates
+    //TODO don't forget to minimize node so that no 2 epsilons are after each other
     //TODO don't forget to add all nodes at the end\
     // TODO make automata Input a set
-    //TODO edit epsilon
     vector<Node*> automataNodes;
     vector<Node*> automatas;
     /*
@@ -104,34 +99,20 @@ private:
 
     Node * cloneAutomata(Node *);
 
-<<<<<<< HEAD
-=======
     Node * bfsEndNodeSearch(Node *);
->>>>>>> parsingTxtFile
     void buildSingleAlnum(char);
     void checkOperandValidity(string);
     void perfromOperation();
 
-    Node * bfsEndNodeSearch(Node *);
-
-    bool isOperation (char);
     int findDefinition (string);
-<<<<<<< HEAD
-    bool whiteSpaceIsOperator(int, string);
-
-    void precedenceOpHandler(char);
-=======
     bool isOperation(char);
     void precedenceOpHandler(char);
 
     Node * isVisited(Node *);
     bool whiteSpaceIsOperator(int, string);
->>>>>>> parsingTxtFile
     //used for expression/definition evaluation
     stack<Node*> operands;
     stack<char> operators;
-
-    bool isDigit(char);
 };
 
 

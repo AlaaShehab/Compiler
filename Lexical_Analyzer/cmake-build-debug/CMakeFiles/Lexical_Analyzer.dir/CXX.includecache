@@ -54,8 +54,6 @@ D:/Projects/Compiler/Lexical_Analyzer/Node.h
 string
 -
 
-<<<<<<< HEAD
-=======
 D:/Projects/Compiler/Lexical_Analyzer/main.cpp
 iostream
 -
@@ -78,4 +76,3 @@ D:/Projects/Compiler/Lexical_Analyzer/Transition.h
 set
 -
 
->>>>>>> parsingTxtFile

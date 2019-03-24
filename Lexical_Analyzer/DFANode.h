@@ -6,17 +6,17 @@
 #define LEXICAL_ANALYZER_DFANODE_H
 
 #include "Node.h"
-#include <vector>
+#include <list>
 
 class DFANode: public Node{
 
 public:
 
     void addName (int);
-    vector<int> getNodeNameList();
+    list<int> getNodeNameList();
 
 private:
-    vector<int> nodeNameList;
+    list<int> nodeNameList;
 
 
 };

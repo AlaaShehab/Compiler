@@ -16,11 +16,6 @@ int main() {
     LexicalRuleParser dfa;
     dfa.readfile("D:\\Projects\\Compiler\\Lexical_Analyzer\\example.txt");
     dfa.parseRules();
-<<<<<<< HEAD
-    //vector<Node *> autom = dfa.getAutotmatas();
-
-=======
->>>>>>> parsingTxtFile
 
     return 0;
 }
