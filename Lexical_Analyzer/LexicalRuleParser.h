@@ -20,8 +20,7 @@ public:
     vector<Node*> getAutotmatas ();
     vector<Node*> getAllAutomataNodes ();
 
-    //static const string LAMDA = "\L";
-    char EPSILON[2] = "L";
+    char EPSILON[2] = "~";
 
 
 private:
