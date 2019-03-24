@@ -8,6 +8,7 @@
 #include "Node.h"
 #include <stack>
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -20,13 +21,24 @@ public:
     vector<Node*> getAutotmatas ();
     vector<Node*> getAllAutomataNodes ();
 
+    Node* getNFAstartNode();
     char EPSILON[2] = "~";
 
 
 private:
 
+
+    //for cloning purpose
+    vector<Node*> visitedNodes;
+    vector<Node*> newlyCreatedNodes;
+
+    //just to make sure that no input is repeated
+    set<char> grammarInput;
+
     int nodesID;
     list<string> rules;
+
+    Node* NFAstartNode;
 
     list<string> expressionList;
     list<string> definitionList;
@@ -40,6 +52,9 @@ private:
     void createPuncAutomata();
     void createExpAutomata();
     void createDefinAutomata();
+
+    void combineNFA();
+
 
 
     void buildKeywordAutomataGraph(vector<string>);
@@ -90,6 +105,7 @@ private:
     bool isOperation(char);
     void precedenceOpHandler(char);
 
+    Node * isVisited(Node *);
     bool whiteSpaceIsOperator(int, string);
     //used for expression/definition evaluation
     stack<Node*> operands;

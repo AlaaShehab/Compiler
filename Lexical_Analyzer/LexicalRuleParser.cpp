@@ -68,6 +68,8 @@ void LexicalRuleParser::parseRules() {
     createDefinAutomata();
     createExpAutomata();
 
+    combineNFA();
+
 }
 
 void LexicalRuleParser::createKeywordAutomata() {
@@ -100,7 +102,7 @@ void LexicalRuleParser::buildKeywordAutomataGraph(vector<string> keywords) {
             input[0] = current[c];
             node->addTransition(Transition(nextNode, input));
             automataNodes.push_back(node);
-            automataInputs.push_back(current[c]);
+            grammarInput.insert(current[c]);
             if (c == 0) {
                 automatas.push_back(node);
                 node->setStartNode(true);
@@ -135,7 +137,7 @@ void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
         automatas.push_back(node);
         automataNodes.push_back(node);
         automataNodes.push_back(nextNode);
-        automataInputs.push_back(input[0]);
+        grammarInput.insert(input[0]);
     }
 }
 
@@ -339,24 +341,13 @@ Node * LexicalRuleParser::concatenateExpression(Node * node1, Node * node2) {
 
 Node * LexicalRuleParser::positiveClosureExp(Node * start) {
 
+    visitedNodes.clear();
+    newlyCreatedNodes.clear();
+
     Node * clonedNode = cloneAutomata(start);
     Node * node = kleenClosureExp(clonedNode);
     Node* n = concatenateExpression(start, node);
     return n;
-}
-
-Node* LexicalRuleParser::cloneAutomata(Node * start) {
-    Node * newNode = new Node (start->getType(), nodesID++);
-    newNode->setAcceptorNode(start->isAcceptor());
-    newNode->setStartNode(start->isStart());
-    vector<Transition> trans = start->getTransition();
-    for (int i = 0; i < trans.size(); i++) {
-        Node * n = cloneAutomata(trans[i].getNode());
-        char* input = new char[strlen(trans[i].getInput())+1];
-        strcpy(input, trans[i].getInput());
-        newNode->addTransition(Transition (n, input));
-    }
-    return newNode;
 }
 
 Node * LexicalRuleParser::kleenClosureExp(Node * start) {
@@ -421,11 +412,44 @@ Node * LexicalRuleParser::rangeExpression(Node * node1, Node * node2) {
     return newStart;
 }
 
+
+Node* LexicalRuleParser::cloneAutomata(Node * start) {
+
+    Node * newNode = new Node (start->getType(), nodesID++);
+    newNode->setAcceptorNode(start->isAcceptor());
+    newNode->setStartNode(start->isStart());
+    visitedNodes.push_back(start);
+    newlyCreatedNodes.push_back(newNode);
+
+    vector<Transition> trans = start->getTransition();
+    for (int i = 0; i < trans.size(); i++) {
+        Node * n;
+        if ((n = isVisited(trans[i].getNode())) == nullptr) {
+            n = cloneAutomata(trans[i].getNode());
+        }
+        char* input = new char[strlen(trans[i].getInput())+1];
+        strcpy(input, trans[i].getInput());
+        newNode->addTransition(Transition (n, input));
+    }
+    return newNode;
+}
+
+Node* LexicalRuleParser::isVisited(Node * node) {
+    for (int i = 0; i < visitedNodes.size(); i++) {
+        if (visitedNodes[i] == node){
+            return newlyCreatedNodes[i];
+        }
+    }
+    return nullptr;
+}
+
 void LexicalRuleParser::checkOperandValidity(string input) {
     int index = findDefinition(input);
     if (input.size() == 1 && isalpha(input[0])) {
         buildSingleAlnum(input[0]);
     } else if (input.size() > 1 && index >= 0) {
+        visitedNodes.clear();
+        newlyCreatedNodes.clear();
         operands.push(cloneAutomata(helpingAutomatas[index]));
     }
 }
@@ -450,6 +474,7 @@ void LexicalRuleParser::buildSingleAlnum(char input) {
     inputChar[0] = input;
     node->addTransition(Transition(nextNode, inputChar));
     operands.push(node);
+    grammarInput.insert(input);
 }
 
 int LexicalRuleParser::precedence(char operation) {
@@ -495,8 +520,8 @@ char* LexicalRuleParser::getRange(char start, char end) {
 
         int j = 0;
         for (int i = start; i < end; i++) {
-
             range[j++] = (char)i;
+            grammarInput.insert(char(i));
         }
         range[j++] = (char)end;
         range[j] = '\0';
@@ -517,6 +542,21 @@ vector<string> LexicalRuleParser::split(string str, char delimiter) {
     }
 
     return internal;
+}
+
+void LexicalRuleParser::combineNFA() {
+    Node* newNode = new Node(nodesID++);
+    newNode->setStartNode(true);
+    for (int i = 0; i < automatas.size(); i++) {
+        automatas[i]->setStartNode(false);
+        newNode->addTransition(Transition(automatas[i], EPSILON));
+    }
+    automataNodes.push_back(newNode);
+    NFAstartNode = newNode;
+}
+
+Node* LexicalRuleParser::getNFAstartNode() {
+    return NFAstartNode;
 }
 
 vector<Node *> LexicalRuleParser::getAllAutomataNodes() {
