@@ -4,10 +4,19 @@
 
 #include "DFANode.h"
 
+
+
 void DFANode::addName(int name) {
     nodeNameList.push_back(name);
 }
+void DFANode::addClosure(int name) {
+    closureList.push_back(name);
+}
 
-list<int> DFANode::getNodeNameList() {
+const vector<int> DFANode::getNodeNameList() {
     return nodeNameList;
+}
+
+const vector<int> &DFANode::getClosureList() const {
+    return closureList;
 }

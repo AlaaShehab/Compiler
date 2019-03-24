@@ -217,12 +217,6 @@ ProcessorCount_cmd_getconf:FILEPATH=/usr/bin/getconf
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/sbin/sysctl
 
-//Value Computed by CMake
-Project_BINARY_DIR:STATIC=/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/cmake-build-debug
-
-//Value Computed by CMake
-Project_SOURCE_DIR:STATIC=/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer
-
 
 ########################
 # INTERNAL cache entries
@@ -341,6 +335,7 @@ CMAKE_OBJDUMP-ADVANCED:INTERNAL=1
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RANLIB
 CMAKE_RANLIB-ADVANCED:INTERNAL=1
+CMAKE_RC_COMPILER_WORKS:INTERNAL=1
 //Path to CMake installation.
 CMAKE_ROOT:INTERNAL=/home/akrammoussa/CLion-2018.2.4/clion-2018.2.4/bin/cmake/linux/share/cmake-3.12
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS

@@ -11,12 +11,18 @@
 class DFANode: public Node{
 
 public:
-
+    DFANode();
     void addName (int);
-    list<int> getNodeNameList();
+    void addClosure(int);
+    const vector<int> getNodeNameList();
+    const vector<int> &getClosureList() const;
+
 
 private:
-    list<int> nodeNameList;
+    vector<int> nodeNameList;
+    vector<int> closureList;
+
+
 
 
 };
