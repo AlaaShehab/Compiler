@@ -15,12 +15,10 @@ public:
     void addName (int);
     void addClosure(int);
     const vector<int> getNodeNameList();
-    const vector<int> &getClosureList() const;
 
 
 private:
     vector<int> nodeNameList;
-    vector<int> closureList;
 
 
 
