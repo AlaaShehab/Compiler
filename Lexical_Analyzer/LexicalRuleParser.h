@@ -21,10 +21,11 @@ public:
     vector<Node*> getAllAutomataNodes ();
 
     //static const string LAMDA = "\L";
-
+    char EPSILON[2] = "\L";
 
 
 private:
+
     int nodesID;
     list<string> rules;
 
@@ -44,12 +45,14 @@ private:
 
     void buildKeywordAutomataGraph(vector<string>);
     void buildPunctAutomataGraph(vector<string>);
-    void buildDefinAutomataGraph(string);
+    void buildDEAutomataGraph(string);
 
     vector<string> split(string, char);
 
-    //TODO don't forget to remove duplicates
-    //TODO don't forget to minimize node so that no 2 epsilons are after each other
+    //TODO don't forget to remove duplicates from input
+    //TODO don't forget to add all nodes at the end\
+    // TODO make automata Input a set
+    //TODO edit epsilon
     vector<Node*> automataNodes;
     vector<Node*> automatas;
     vector<char> automataInputs;
@@ -64,14 +67,37 @@ private:
     /*
      * add name of a definition to list for later use
      */
-    void getDefinitionNotation(string);
+    string getDEtype(string);
 
 
     int precedence (char);
-
     char* getRange(char, char);
 
 
+    Node * concatenateExpression(Node *, Node *);
+    Node * orExpression(Node *, Node *);
+    Node * positiveClosureExp(Node *);
+    Node * kleenClosureExp(Node *);
+    Node * rangeExpression(Node *, Node *);
+
+    Node * cloneAutomata(Node *);
+
+    void buildSingleAlnum(char);
+    void checkOperandValidity(string);
+    void perfromOperation();
+
+    Node * bfsEndNodeSearch(Node *);
+
+    bool isOperation (char);
+    int findDefinition (string);
+    bool whiteSpaceIsOperator(int, string);
+
+    void precedenceOpHandler(char);
+    //used for expression/definition evaluation
+    stack<Node*> operands;
+    stack<char> operators;
+
+    bool isDigit(char);
 };
 
 

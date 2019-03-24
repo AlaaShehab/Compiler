@@ -7,11 +7,12 @@
 
 
 #include "Node.h"
+#include "DFANode.h"
 
 class DFAGenerator {
 public:
     void initializeClousreLists(vector<Node*>);
-    vector<Node*> generateDFATable(vector<Node*>);
+    vector<Node*> generateDFATable(vector<Node*>,char*);
 
 
 };

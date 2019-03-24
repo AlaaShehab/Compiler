@@ -4,6 +4,8 @@
 
 #include "DFANode.h"
 
+
+
 void DFANode::addName(int name) {
     nodeNameList.push_back(name);
 }
@@ -11,7 +13,7 @@ void DFANode::addClosure(int name) {
     closureList.push_back(name);
 }
 
-vector<int> DFANode::getNodeNameList() {
+const vector<int> DFANode::getNodeNameList() {
     return nodeNameList;
 }
 
