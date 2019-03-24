@@ -7,7 +7,7 @@
 #include "Node.h"
 #include "LexicalRuleParser.h"
 #include "Transition.h"
-
+#include <set>
 using namespace std;
 void dfa( char * c);
 
@@ -16,6 +16,6 @@ int main() {
     LexicalRuleParser dfa;
     dfa.readfile("D:\\Projects\\Compiler\\Lexical_Analyzer\\example.txt");
     dfa.parseRules();
-    
+
     return 0;
 }
