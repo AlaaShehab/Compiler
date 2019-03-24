@@ -35,7 +35,8 @@ public:
     vector<Transition> getTransition();
     Transition getFirstTransition();
     Node* getNext ();
-    vector<Node> getEpslonClosure();
+    vector<int> getEpslonClosure();
+    void addToEpsilonClosure(int);
 
 private:
     //variables
@@ -46,7 +47,7 @@ private:
 
     //list of transitions for a node
     vector<Transition> transitionList;
-    vector<Node> epslonClosure;
+    vector<int> epslonClosure;
 
 };
 
