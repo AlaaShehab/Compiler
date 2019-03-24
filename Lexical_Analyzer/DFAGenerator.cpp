@@ -33,9 +33,7 @@ void DFAGenerator::initializeClosureLists(vector<Node *> NFA) {
         }
     }
 }
-void DFAGenerator::initializeClousreLists(vector<Node *> NFA) {
 
-}
 vector<Node*>  DFAGenerator::generateDFATable(vector<Node *> NFA , char* inputs) {
     DFANode* startNode = new DFANode();
     startNode->addName(NFA[0]->getName());
