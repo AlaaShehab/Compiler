@@ -67,8 +67,9 @@ void LexicalRuleParser::parseRules() {
     createPuncAutomata();
     createDefinAutomata();
     createExpAutomata();
-
     combineNFA();
+
+    adjustNodesPosition();
 
 }
 
@@ -110,6 +111,7 @@ void LexicalRuleParser::buildKeywordAutomataGraph(vector<string> keywords) {
         }
         node = node->getNext();
         node->setAcceptorNode(true);
+        automataNodes.push_back(node);
     }
 }
 
@@ -143,6 +145,7 @@ void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
 
 void LexicalRuleParser::createExpAutomata() {
     list<string>::iterator it;
+    isExpression = true;
     for (it = expressionList.begin(); it != expressionList.end(); ++it){
         string str = it->c_str();
         string type = getDEtype(str);
@@ -157,6 +160,7 @@ void LexicalRuleParser::createExpAutomata() {
         node->setType(type);
         operands.top()->setType(type);
         automatas.push_back(operands.top());
+
     }
 }
 
@@ -345,6 +349,11 @@ Node * LexicalRuleParser::positiveClosureExp(Node * start) {
     newlyCreatedNodes.clear();
 
     Node * clonedNode = cloneAutomata(start);
+
+    if (isExpression) {
+        automataNodes.insert(automataNodes.end(), newlyCreatedNodes.begin(), newlyCreatedNodes.end());
+    }
+
     Node * node = kleenClosureExp(clonedNode);
     Node* n = concatenateExpression(start, node);
     return n;
@@ -367,6 +376,11 @@ Node * LexicalRuleParser::kleenClosureExp(Node * start) {
     temp->addTransition(Transition(start, EPSILON));
     temp->addTransition(Transition(newEnd, EPSILON));
     newStart->addTransition(Transition(newEnd, EPSILON));
+
+    if (isExpression) {
+        automataNodes.push_back(newStart);
+        automataNodes.push_back(newEnd);
+    }
 
     return newStart;
 
@@ -395,6 +409,11 @@ Node* LexicalRuleParser::orExpression(Node * node1, Node * node2) {
     temp->addTransition(Transition(newEnd, EPSILON));
     temp->setAcceptorNode(false);
 
+    if (isExpression) {
+        automataNodes.push_back(newStart);
+        automataNodes.push_back(newEnd);
+    }
+
     return newStart;
 }
 
@@ -409,6 +428,12 @@ Node * LexicalRuleParser::rangeExpression(Node * node1, Node * node2) {
     char* input2 = node2->getFirstTransition().getInput();
     range = getRange(*input1, *input2);
     newStart->addTransition(Transition(newEnd, range));
+
+    if (isExpression) {
+        automataNodes.push_back(newStart);
+        automataNodes.push_back(newEnd);
+    }
+
     return newStart;
 }
 
@@ -451,6 +476,9 @@ void LexicalRuleParser::checkOperandValidity(string input) {
         visitedNodes.clear();
         newlyCreatedNodes.clear();
         operands.push(cloneAutomata(helpingAutomatas[index]));
+        if (isExpression) {
+            automataNodes.insert(automataNodes.end(), newlyCreatedNodes.begin(), newlyCreatedNodes.end());
+        }
     }
 }
 
@@ -475,6 +503,11 @@ void LexicalRuleParser::buildSingleAlnum(char input) {
     node->addTransition(Transition(nextNode, inputChar));
     operands.push(node);
     grammarInput.insert(input);
+
+    if (isExpression) {
+        automataNodes.push_back(node);
+        automataNodes.push_back(nextNode);
+    }
 }
 
 int LexicalRuleParser::precedence(char operation) {
@@ -544,6 +577,15 @@ vector<string> LexicalRuleParser::split(string str, char delimiter) {
     return internal;
 }
 
+void LexicalRuleParser::adjustNodesPosition() {
+    for (int i = 0; i < automataNodes.size(); i++) {
+        if (automataNodes[i]->getName() != i) {
+            automataNodes[i]->setName(i);
+        }
+    }
+
+}
+
 void LexicalRuleParser::combineNFA() {
     Node* newNode = new Node(nodesID++);
     newNode->setStartNode(true);
@@ -564,6 +606,7 @@ vector<Node *> LexicalRuleParser::getAllAutomataNodes() {
 }
 
 vector<char> LexicalRuleParser::getAutomataInput() {
+    vector<char> automataInputs(grammarInput.begin(), grammarInput.end());
     return automataInputs;
 }
 

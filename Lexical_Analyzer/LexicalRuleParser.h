@@ -32,6 +32,9 @@ private:
     vector<Node*> visitedNodes;
     vector<Node*> newlyCreatedNodes;
 
+    //used to identify when a node will be added
+    bool isExpression = false;
+
     //just to make sure that no input is repeated
     set<char> grammarInput;
 
@@ -55,7 +58,9 @@ private:
 
     void combineNFA();
 
-
+    void addNodes(Node *);
+    void dfs(Node *);
+    void adjustNodesPosition();
 
     void buildKeywordAutomataGraph(vector<string>);
     void buildPunctAutomataGraph(vector<string>);
@@ -69,8 +74,6 @@ private:
     // TODO make automata Input a set
     vector<Node*> automataNodes;
     vector<Node*> automatas;
-    vector<char> automataInputs;
-
     /*
      * used with definitions that are just helping | building parts of
      * regular expressions|definitions
