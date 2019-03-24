@@ -8,6 +8,7 @@
 #include "Node.h"
 #include <stack>
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -20,14 +21,32 @@ public:
     vector<Node*> getAutotmatas ();
     vector<Node*> getAllAutomataNodes ();
 
+<<<<<<< HEAD
     //static const string LAMDA = "\L";
     char EPSILON[2] = "\L";
+=======
+    Node* getNFAstartNode();
+    char EPSILON[2] = "~";
+>>>>>>> parsingTxtFile
 
 
 private:
 
+
+    //for cloning purpose
+    vector<Node*> visitedNodes;
+    vector<Node*> newlyCreatedNodes;
+
+    //used to identify when a node will be added
+    bool isExpression = false;
+
+    //just to make sure that no input is repeated
+    set<char> grammarInput;
+
     int nodesID;
     list<string> rules;
+
+    Node* NFAstartNode;
 
     list<string> expressionList;
     list<string> definitionList;
@@ -42,6 +61,11 @@ private:
     void createExpAutomata();
     void createDefinAutomata();
 
+    void combineNFA();
+
+    void addNodes(Node *);
+    void dfs(Node *);
+    void adjustNodesPosition();
 
     void buildKeywordAutomataGraph(vector<string>);
     void buildPunctAutomataGraph(vector<string>);
@@ -55,8 +79,6 @@ private:
     //TODO edit epsilon
     vector<Node*> automataNodes;
     vector<Node*> automatas;
-    vector<char> automataInputs;
-
     /*
      * used with definitions that are just helping | building parts of
      * regular expressions|definitions
@@ -82,6 +104,10 @@ private:
 
     Node * cloneAutomata(Node *);
 
+<<<<<<< HEAD
+=======
+    Node * bfsEndNodeSearch(Node *);
+>>>>>>> parsingTxtFile
     void buildSingleAlnum(char);
     void checkOperandValidity(string);
     void perfromOperation();
@@ -90,9 +116,17 @@ private:
 
     bool isOperation (char);
     int findDefinition (string);
+<<<<<<< HEAD
     bool whiteSpaceIsOperator(int, string);
 
     void precedenceOpHandler(char);
+=======
+    bool isOperation(char);
+    void precedenceOpHandler(char);
+
+    Node * isVisited(Node *);
+    bool whiteSpaceIsOperator(int, string);
+>>>>>>> parsingTxtFile
     //used for expression/definition evaluation
     stack<Node*> operands;
     stack<char> operators;

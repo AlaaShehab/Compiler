@@ -1,1 +1,5 @@
 example.txt
+cmake-build-debug/
+.idea/
+CMakeLists
+main.cpp

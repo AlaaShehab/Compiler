@@ -67,6 +67,12 @@ void LexicalRuleParser::parseRules() {
     createPuncAutomata();
     createDefinAutomata();
     createExpAutomata();
+<<<<<<< HEAD
+=======
+    combineNFA();
+
+    adjustNodesPosition();
+>>>>>>> parsingTxtFile
 
 }
 
@@ -100,7 +106,7 @@ void LexicalRuleParser::buildKeywordAutomataGraph(vector<string> keywords) {
             input[0] = current[c];
             node->addTransition(Transition(nextNode, input));
             automataNodes.push_back(node);
-            automataInputs.push_back(current[c]);
+            grammarInput.insert(current[c]);
             if (c == 0) {
                 automatas.push_back(node);
                 node->setStartNode(true);
@@ -108,6 +114,7 @@ void LexicalRuleParser::buildKeywordAutomataGraph(vector<string> keywords) {
         }
         node = node->getNext();
         node->setAcceptorNode(true);
+        automataNodes.push_back(node);
     }
 }
 
@@ -135,12 +142,20 @@ void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
         automatas.push_back(node);
         automataNodes.push_back(node);
         automataNodes.push_back(nextNode);
+<<<<<<< HEAD
         automataInputs.push_back(input[0]);
+=======
+        grammarInput.insert(input[0]);
+>>>>>>> parsingTxtFile
     }
 }
 
 void LexicalRuleParser::createExpAutomata() {
     list<string>::iterator it;
+<<<<<<< HEAD
+=======
+    isExpression = true;
+>>>>>>> parsingTxtFile
     for (it = expressionList.begin(); it != expressionList.end(); ++it){
         string str = it->c_str();
         string type = getDEtype(str);
@@ -148,13 +163,23 @@ void LexicalRuleParser::createExpAutomata() {
         int startOfDef = str.find_first_of(':') + 1;
         str = str.substr(startOfDef, str.size() - startOfDef);
         int skipWhitespace = str.find_first_not_of(' ');
+<<<<<<< HEAD
 
         buildDEAutomataGraph(str.substr(skipWhitespace, str.size() - skipWhitespace));
 
+=======
+
+        buildDEAutomataGraph(str.substr(skipWhitespace, str.size() - skipWhitespace));
+
+>>>>>>> parsingTxtFile
         Node * node = bfsEndNodeSearch(operands.top());
         node->setType(type);
         operands.top()->setType(type);
         automatas.push_back(operands.top());
+<<<<<<< HEAD
+=======
+
+>>>>>>> parsingTxtFile
     }
 }
 
@@ -192,25 +217,58 @@ void LexicalRuleParser::buildDEAutomataGraph(string definition) {
     stack<Node *>().swap(operands);
 
     string operand;
+<<<<<<< HEAD
+=======
+    bool concatenate = false;
+>>>>>>> parsingTxtFile
     int size = definition.size();
     for (int i = 0; i < definition.size(); i++) {
         char ch = definition[i];
 
+<<<<<<< HEAD
         if (ch == '\\' && definition[i+1] == EPSILON[0]) {
             buildSingleAlnum(EPSILON[0]);
         } else if (ch == '\\') {
             //skip characters
         } else if (isalpha(ch)) {
+=======
+        if (ch == '\\') {
+            if (i-1 >= 0 && definition[i-1] == '\\') {
+                buildSingleAlnum(ch);
+            }
+        } else if (ch == EPSILON[0] && i-1 >= 0&& definition[i - 1] == '\\') {
+            concatenate = false;
+            buildSingleAlnum(EPSILON[0]);
+        } else if (isalpha(ch)) {
+            concatenate = false;
+>>>>>>> parsingTxtFile
             operand += ch;
         } else if (isdigit(ch)) {
+            concatenate = false;
             operand = "";
             buildSingleAlnum(ch);
+<<<<<<< HEAD
         } else if (!isOperation(ch) || (ch == '\\' && definition[i+1] != EPSILON[0])) {
             buildSingleAlnum(ch);
             if (i-1 >= 0 &&definition[i-1] != '\\' && !isalnum(definition[i-1]) && !isOperation(definition[i-1])) {
                 precedenceOpHandler(' ');
             }
+=======
+        } else if (isOperation(ch) && i-1 >=0 && definition[i-1] == '\\') {
+            buildSingleAlnum(ch);
+            if (concatenate) {
+                precedenceOpHandler(' ');
+            }
+            concatenate = true;
+        } else if (!isOperation(ch)) {
+            buildSingleAlnum(ch);
+            if (concatenate) {
+                precedenceOpHandler(' ');
+            }
+            concatenate = true;
+>>>>>>> parsingTxtFile
         } else if (ch == ' ') {
+            concatenate = false;
             if (operand != "") {
                 checkOperandValidity(operand);
                 operand = "";
@@ -219,6 +277,7 @@ void LexicalRuleParser::buildDEAutomataGraph(string definition) {
                 precedenceOpHandler(ch);
             }
         } else {
+            concatenate = false;
             if (operand != "") {
                 checkOperandValidity(operand);
                 operand = "";
@@ -263,6 +322,7 @@ void LexicalRuleParser::precedenceOpHandler(char ch) {
         if (!operators.empty() && operators.top() == '(') {
             operators.pop();
         }
+<<<<<<< HEAD
     }
     operators.push(ch);
 }
@@ -282,6 +342,27 @@ Node* LexicalRuleParser::bfsEndNodeSearch(Node * start) {
             q.push(trans[i].getNode());
         }
     }
+=======
+    }
+    operators.push(ch);
+}
+
+Node* LexicalRuleParser::bfsEndNodeSearch(Node * start) {
+    queue<Node *> q;
+    q.push(start);
+
+    while (!q.empty()) {
+        Node* node = q.front();
+        q.pop();
+        if (node->isAcceptor()) {
+            return node;
+        }
+        vector<Transition> trans = node->getTransition();
+        for (int i = 0; i < trans.size(); i++) {
+            q.push(trans[i].getNode());
+        }
+    }
+>>>>>>> parsingTxtFile
 
     return nullptr;
 }
@@ -324,6 +405,7 @@ Node * LexicalRuleParser::concatenateExpression(Node * node1, Node * node2) {
 
 Node * LexicalRuleParser::positiveClosureExp(Node * start) {
 
+<<<<<<< HEAD
     Node * clonedNode = cloneAutomata(start);
     Node * node = kleenClosureExp(clonedNode);
     Node* n = concatenateExpression(start, node);
@@ -340,8 +422,20 @@ Node* LexicalRuleParser::cloneAutomata(Node * start) {
         char* input = new char[strlen(trans[i].getInput())+1];
         strcpy(input, trans[i].getInput());
         newNode->addTransition(Transition (n, input));
+=======
+    visitedNodes.clear();
+    newlyCreatedNodes.clear();
+
+    Node * clonedNode = cloneAutomata(start);
+
+    if (isExpression) {
+        automataNodes.insert(automataNodes.end(), newlyCreatedNodes.begin(), newlyCreatedNodes.end());
+>>>>>>> parsingTxtFile
     }
-    return newNode;
+
+    Node * node = kleenClosureExp(clonedNode);
+    Node* n = concatenateExpression(start, node);
+    return n;
 }
 
 Node * LexicalRuleParser::kleenClosureExp(Node * start) {
@@ -361,6 +455,14 @@ Node * LexicalRuleParser::kleenClosureExp(Node * start) {
     temp->addTransition(Transition(start, EPSILON));
     temp->addTransition(Transition(newEnd, EPSILON));
     newStart->addTransition(Transition(newEnd, EPSILON));
+<<<<<<< HEAD
+=======
+
+    if (isExpression) {
+        automataNodes.push_back(newStart);
+        automataNodes.push_back(newEnd);
+    }
+>>>>>>> parsingTxtFile
 
     return newStart;
 
@@ -389,6 +491,11 @@ Node* LexicalRuleParser::orExpression(Node * node1, Node * node2) {
     temp->addTransition(Transition(newEnd, EPSILON));
     temp->setAcceptorNode(false);
 
+    if (isExpression) {
+        automataNodes.push_back(newStart);
+        automataNodes.push_back(newEnd);
+    }
+
     return newStart;
 }
 
@@ -403,7 +510,44 @@ Node * LexicalRuleParser::rangeExpression(Node * node1, Node * node2) {
     char* input2 = node2->getFirstTransition().getInput();
     range = getRange(*input1, *input2);
     newStart->addTransition(Transition(newEnd, range));
+
+    if (isExpression) {
+        automataNodes.push_back(newStart);
+        automataNodes.push_back(newEnd);
+    }
+
     return newStart;
+}
+
+
+Node* LexicalRuleParser::cloneAutomata(Node * start) {
+
+    Node * newNode = new Node (start->getType(), nodesID++);
+    newNode->setAcceptorNode(start->isAcceptor());
+    newNode->setStartNode(start->isStart());
+    visitedNodes.push_back(start);
+    newlyCreatedNodes.push_back(newNode);
+
+    vector<Transition> trans = start->getTransition();
+    for (int i = 0; i < trans.size(); i++) {
+        Node * n;
+        if ((n = isVisited(trans[i].getNode())) == nullptr) {
+            n = cloneAutomata(trans[i].getNode());
+        }
+        char* input = new char[strlen(trans[i].getInput())+1];
+        strcpy(input, trans[i].getInput());
+        newNode->addTransition(Transition (n, input));
+    }
+    return newNode;
+}
+
+Node* LexicalRuleParser::isVisited(Node * node) {
+    for (int i = 0; i < visitedNodes.size(); i++) {
+        if (visitedNodes[i] == node){
+            return newlyCreatedNodes[i];
+        }
+    }
+    return nullptr;
 }
 
 void LexicalRuleParser::checkOperandValidity(string input) {
@@ -411,7 +555,16 @@ void LexicalRuleParser::checkOperandValidity(string input) {
     if (input.size() == 1 && isalpha(input[0])) {
         buildSingleAlnum(input[0]);
     } else if (input.size() > 1 && index >= 0) {
+<<<<<<< HEAD
         operands.push(cloneAutomata(helpingAutomatas[index]));
+=======
+        visitedNodes.clear();
+        newlyCreatedNodes.clear();
+        operands.push(cloneAutomata(helpingAutomatas[index]));
+        if (isExpression) {
+            automataNodes.insert(automataNodes.end(), newlyCreatedNodes.begin(), newlyCreatedNodes.end());
+        }
+>>>>>>> parsingTxtFile
     }
 }
 
@@ -435,6 +588,12 @@ void LexicalRuleParser::buildSingleAlnum(char input) {
     inputChar[0] = input;
     node->addTransition(Transition(nextNode, inputChar));
     operands.push(node);
+    grammarInput.insert(input);
+
+    if (isExpression) {
+        automataNodes.push_back(node);
+        automataNodes.push_back(nextNode);
+    }
 }
 
 int LexicalRuleParser::precedence(char operation) {
@@ -480,8 +639,8 @@ char* LexicalRuleParser::getRange(char start, char end) {
 
         int j = 0;
         for (int i = start; i < end; i++) {
-
             range[j++] = (char)i;
+            grammarInput.insert(char(i));
         }
         range[j++] = (char)end;
         range[j] = '\0';
@@ -504,6 +663,7 @@ vector<string> LexicalRuleParser::split(string str, char delimiter) {
     return internal;
 }
 
+<<<<<<< HEAD
 bool LexicalRuleParser::isDigit(char ch) {
     if (ch == '0' || ch == '1' || ch == '2'
         || ch == '3' || ch == '4' || ch == '5'
@@ -512,6 +672,30 @@ bool LexicalRuleParser::isDigit(char ch) {
         return true;
     }
     return false;
+=======
+void LexicalRuleParser::adjustNodesPosition() {
+    for (int i = 0; i < automataNodes.size(); i++) {
+        if (automataNodes[i]->getName() != i) {
+            automataNodes[i]->setName(i);
+        }
+    }
+
+}
+
+void LexicalRuleParser::combineNFA() {
+    Node* newNode = new Node(nodesID++);
+    newNode->setStartNode(true);
+    for (int i = 0; i < automatas.size(); i++) {
+        automatas[i]->setStartNode(false);
+        newNode->addTransition(Transition(automatas[i], EPSILON));
+    }
+    automataNodes.push_back(newNode);
+    NFAstartNode = newNode;
+}
+
+Node* LexicalRuleParser::getNFAstartNode() {
+    return NFAstartNode;
+>>>>>>> parsingTxtFile
 }
 
 vector<Node *> LexicalRuleParser::getAllAutomataNodes() {
@@ -519,6 +703,7 @@ vector<Node *> LexicalRuleParser::getAllAutomataNodes() {
 }
 
 vector<char> LexicalRuleParser::getAutomataInput() {
+    vector<char> automataInputs(grammarInput.begin(), grammarInput.end());
     return automataInputs;
 }
 
