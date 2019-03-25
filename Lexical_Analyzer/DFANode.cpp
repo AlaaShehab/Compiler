@@ -14,3 +14,7 @@ const vector<int> DFANode::getNodeNameList() {
     return nodeNameList;
 }
 
+vector<string> DFANode::getTypesAccepted() {
+    return typesAccepted;
+}
+

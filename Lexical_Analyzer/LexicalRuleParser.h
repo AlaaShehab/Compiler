@@ -9,6 +9,7 @@
 #include <stack>
 #include <vector>
 #include <set>
+#include <map>
 
 using namespace std;
 
@@ -24,9 +25,15 @@ public:
     Node* getNFAstartNode();
     char EPSILON[2] = "~";
 
+    map<string, int> getPriority();
+
 
 private:
 
+    //map for grammar priority
+    map<string, int> priority;
+    //priority 0 means highest priority
+    int priorityCounter = 0;
 
     //for cloning purpose
     vector<Node*> visitedNodes;

@@ -15,9 +15,10 @@ public:
     void addName (int);
     void addClosure(int);
     const vector<int> getNodeNameList();
-
+    vector<string> getTypesAccepted();
 
 private:
+    vector<string> typesAccepted;
     vector<int> nodeNameList;
 
 
