@@ -10,18 +10,31 @@
 #include "Transition.h"
 using namespace std;
 
-void fillInClosure(Node*,vector<Node *>){
+void fillInClosure(DFANode*,vector<Node *>){
     //todo
 }
 
 bool checkIfExists(vector<int> nameList , vector<DFANode *> DFA){
-    //todo
+
 }
 DFANode* getNodeFromName(vector<int> nodeNameList, vector<DFANode *> DFA){
     //todo
 }
 void setEndNodes(vector<Node *> NFA,vector<DFANode *> DFA ){
-    //todo
+    for (int i = 0; i < NFA.size(); ++i) {
+        if(NFA[i]->isAcceptor()) {
+            for (int j = 0; j < DFA.size(); ++j) {
+                vector<int> tempNameList = DFA[j]->getNodeNameList();
+                for (int k = 0; k < tempNameList.size(); ++k) {
+                        if (NFA[i]->getName() == tempNameList[k]){
+                            DFA[j]->setAcceptorNode(true);
+                            DFA[j]->addToTypesAccepted(NFA[i]->getType());
+                            break;
+                        }
+                }
+            }
+        }
+    }
 }
 
 vector<int> tranistionTo(char *input, int target, vector<Node *> NFA) {
