@@ -3,7 +3,7 @@
 //
 
 #include "LexicalRuleParser.h"
-#include <string.h>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <regex>
@@ -82,6 +82,7 @@ void LexicalRuleParser::createKeywordAutomata() {
         vector<string> keywords = split(str.substr(1,str.size() - 2), ' ');
         buildKeywordAutomataGraph(keywords);
     }
+    priorityCounter++;
 }
 
 void LexicalRuleParser::buildKeywordAutomataGraph(vector<string> keywords) {
@@ -112,6 +113,8 @@ void LexicalRuleParser::buildKeywordAutomataGraph(vector<string> keywords) {
         node = node->getNext();
         node->setAcceptorNode(true);
         automataNodes.push_back(node);
+
+        priority.insert(pair<string, int> (keywords[i], priorityCounter));
     }
 }
 
@@ -122,6 +125,7 @@ void LexicalRuleParser::createPuncAutomata() {
         vector<string> punct = split(str.substr(1,str.size() - 2), ' ');
         buildPunctAutomataGraph(punct);
     }
+    priorityCounter++;
 }
 
 void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
@@ -140,7 +144,10 @@ void LexicalRuleParser::buildPunctAutomataGraph(vector<string> punct) {
         automataNodes.push_back(node);
         automataNodes.push_back(nextNode);
         grammarInput.insert(input[0]);
+
+        priority.insert(pair<string, int> (input, priorityCounter));
     }
+
 }
 
 void LexicalRuleParser::createExpAutomata() {
@@ -160,6 +167,9 @@ void LexicalRuleParser::createExpAutomata() {
         node->setType(type);
         operands.top()->setType(type);
         automatas.push_back(operands.top());
+
+        priority.insert(pair<string, int> (type, priorityCounter));
+        priorityCounter++;
 
     }
 }
@@ -612,4 +622,8 @@ vector<char> LexicalRuleParser::getAutomataInput() {
 
 vector<Node *> LexicalRuleParser::getAutotmatas() {
     return automatas;
+}
+
+map<string, int> LexicalRuleParser::getPriority() {
+    return priority;
 }

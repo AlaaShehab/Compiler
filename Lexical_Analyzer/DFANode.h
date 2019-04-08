@@ -14,6 +14,7 @@ public:
     DFANode(int);
     DFANode(string,int);
     void addName (int);
+    void addClosure(int);
     const vector<int> getNodeNameList();
     vector<string> getTypesAccepted();
     void addToTypesAccepted(string);
