@@ -29,16 +29,17 @@ void fillInClosure(DFANode* node,vector<Node *> NFA){
 
 }
 
+//can be optimized to return node directly
 bool checkIfExists(vector<int> nameList , vector<DFANode *> DFA){
-    sort(nameList.begin() , nameList.end());
+    set<int> newNodeName(nameList.begin(), nameList.end());
     for (int i = 0; i < DFA.size(); ++i) {
         vector<int> tempName = DFA[i]->getNodeNameList();
-        sort(tempName.begin() , tempName.end());
-        if (nameList == tempName){
+        set<int> existNodeName(tempName.begin(), tempName.end());
+        if (newNodeName == existNodeName){
             return true;
         }
-        return false;
     }
+    return false;
 }
 DFANode* getNodeFromName(vector<int> nodeNameList, vector<DFANode *> DFA){
     sort(nodeNameList.begin() , nodeNameList.end());
