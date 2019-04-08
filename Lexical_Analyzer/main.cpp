@@ -11,20 +11,28 @@
 #include <map>
 #include "TokenGenerator.h"
 #include "Token.h"
-
+#include "DFAGenerator.h"
 using namespace std;
 
 
 
 int main() {
 
-    LexicalRuleParser dfa;
-    dfa.readfile("D:\\Projects\\Compiler\\Lexical_Analyzer\\example.txt");
-    dfa.parseRules();
-    map<string, int> map = dfa.getPriority();
+    char EP[2] = "~";
+    LexicalRuleParser nfa;
+    nfa.readfile("D:\\Projects\\Compiler\\Lexical_Analyzer\\example.txt");
+    nfa.parseRules();
+    map<string, int> map = nfa.getPriority();
 
+    char * c = "~";
 
+    if (c == EP) {
+        cout << "yeees";
+    }
 
+   DFAGenerator dfa = DFAGenerator();
+   dfa.initializeClosureLists(nfa.getAllAutomataNodes());
+   dfa.generateDFATable(nfa.getAllAutomataNodes(), nfa.getAutomataInput(), nfa.getNFAstartNode());
 
 
     return 0;

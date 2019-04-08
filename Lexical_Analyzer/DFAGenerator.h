@@ -8,7 +8,7 @@
 class DFAGenerator {
 public:
     void initializeClosureLists(vector<Node*>);
-    vector<Node*> generateDFATable(vector<Node*>,vector<char*>,Node*);
+    vector<DFANode*> generateDFATable(vector<Node*>,vector<char>,Node*);
 
 };
 

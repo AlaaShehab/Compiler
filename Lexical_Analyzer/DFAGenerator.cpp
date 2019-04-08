@@ -54,7 +54,7 @@ void setEndNodes(vector<Node *> NFA,vector<DFANode *> DFA ){
     for (int i = 0; i < NFA.size(); ++i) {
         if(NFA[i]->isAcceptor()) {
             for (int j = 0; j < DFA.size(); ++j) {
-                vector<int> tempNameList = DFA[j]->getNodeNameList();
+                vector<int> tempNameList = DFA[j]->getEpslonClosure();
                 for (int k = 0; k < tempNameList.size(); ++k) {
                         if (NFA[i]->getName() == tempNameList[k]){
                             DFA[j]->setAcceptorNode(true);
@@ -67,7 +67,16 @@ void setEndNodes(vector<Node *> NFA,vector<DFANode *> DFA ){
     }
 }
 
-vector<int> tranistionTo(char *input, int target, vector<Node *> NFA) {
+bool findTransitionOnInput (char* transitionInput, char input) {
+    for (int i = 0; i < strlen(transitionInput); i++) {
+        if (input == transitionInput[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+vector<int> tranistionTo(char input, int target, vector<Node *> NFA) {
     //todo: it takes char inout and target from closure and return nextNodes when givin that input
     Node* tempNode;
     vector<int> listOfTransitions;
@@ -79,13 +88,15 @@ vector<int> tranistionTo(char *input, int target, vector<Node *> NFA) {
     }
     vector<Transition> tempTransitionList  = tempNode->getTransition();
     for (int j = 0; j <tempTransitionList.size() ; ++j) {
-        if (tempTransitionList[j].getInput() == input){
+        if (findTransitionOnInput(tempTransitionList[j].getInput(), input)){
             listOfTransitions.push_back(tempTransitionList[j].getNode()->getName());
         }
     }
     return listOfTransitions;
 
 }
+
+
 void DFAGenerator::initializeClosureLists(vector<Node *> NFA) {
 
     for (int i = 0; i < NFA.size(); ++i) {
@@ -101,14 +112,18 @@ void DFAGenerator::initializeClosureLists(vector<Node *> NFA) {
                 visited[index] = true;
                 NFA[i]->addToEpsilonClosure(index);
             }
-            for (auto j = s->getTransition().begin(); j != s->getTransition().end(); ++j)
-                if (!visited[j.operator*().getNode()->getName()] && *(j.operator*().getInput()) == EPSILON[0])
-                    stack.push(j.operator*().getNode());
+            vector<Transition> transition = s->getTransition();
+            for (int i = 0; i < transition.size(); i++) {
+                Node* temp = transition[i].getNode();
+                if (!visited[temp->getName()] && (transition[i].getInput())[0] == EPSILON[0]) {
+                    stack.push(temp);
+                }
+            }
         }
     }
 }
 
-vector<Node*>  DFAGenerator::generateDFATable(vector<Node *> NFA , vector<char*> inputs,Node* start) {
+vector<DFANode*>  DFAGenerator::generateDFATable(vector<Node *> NFA , vector<char> inputs,Node* start) {
     vector<DFANode *> DFA ;
     queue<DFANode *> buildingQueue;
     int nameCounter = 0;
@@ -125,26 +140,36 @@ vector<Node*>  DFAGenerator::generateDFATable(vector<Node *> NFA , vector<char*>
         buildingQueue.pop();
         vector<int> tempClosure = tempNode->getEpslonClosure();
         for (int i = 0; i < inputs.size() ; ++i) {
-            DFANode* newNode = new DFANode(nameCounter);
-            nameCounter++;
+            DFANode* newNode = new DFANode(nameCounter++);
+            bool inputFound =false;
             for (int j = 0; j < tempClosure.size(); ++j) {
                 vector<int> tempVector = tranistionTo(inputs[i] ,tempClosure[j] , NFA );
                 for (int k = 0; k <tempVector.size() ; ++k) {
                     newNode->addName(tempVector[k]);
+                    inputFound =true;
                 }
             }
-            if(!checkIfExists(newNode->getNodeNameList(),DFA)){
-                fillInClosure(newNode,NFA);
-                buildingQueue.push(newNode);
-                tempNode->addTransition(Transition(newNode, inputs[i]));
-            } else{
+            char temp[2];
+            temp[0] = inputs[i];
+            if (inputFound) {
+                if(!checkIfExists(newNode->getNodeNameList(),DFA)){
+                    fillInClosure(newNode,NFA);
+                    buildingQueue.push(newNode);
+                    DFA.push_back(newNode);
+                    tempNode->addTransition(Transition(newNode, temp));
+                } else{
+                    nameCounter --;
+                    newNode = getNodeFromName(newNode->getNodeNameList(), DFA);
+                    tempNode->addTransition(Transition(newNode, temp));
+                }
+            } else {
                 nameCounter --;
-                newNode = getNodeFromName(newNode->getNodeNameList(),DFA);
-                tempNode->addTransition(Transition(newNode, inputs[i]));
             }
         }
         setEndNodes(NFA,DFA);
     }
+    setEndNodes(NFA,DFA);
+    return DFA;
 }
 
 
