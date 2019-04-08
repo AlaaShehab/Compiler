@@ -9,6 +9,9 @@
 #include <vector>
 #include "DFANode.h"
 #include "Token.h"
+#include <string.h>
+#include "Transition.h"
+#include <map>
 
 using namespace std;
 
@@ -17,7 +20,7 @@ class Token;
 class TokenGenerator {
 
 public:
-    TokenGenerator(DFANode*);
+    TokenGenerator(DFANode*, map<string, int>);
     void tokenizeCode(string);
     Token* getNextToken();
 
@@ -30,6 +33,9 @@ private:
     //the whole program that will be compiled
     string programCode;
 
+    //lexical rules priorities
+    map<string, int> priority;
+
     //tokens to be returned to print to file
     vector<Token*> tokens;
 
@@ -38,7 +44,13 @@ private:
 
     void readProgram(string);
 
+    bool findTransition(Transition, char);
 
+    string getAccepted(vector<string>);
+
+    int backTrack(int, DFANode *);
+
+    bool setError(int, bool);
 
 };
 

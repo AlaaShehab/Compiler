@@ -625,5 +625,5 @@ vector<Node *> LexicalRuleParser::getAutotmatas() {
 }
 
 map<string, int> LexicalRuleParser::getPriority() {
-    return priotity;
+    return priority;
 }

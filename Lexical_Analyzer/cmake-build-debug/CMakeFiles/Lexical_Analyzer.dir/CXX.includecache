@@ -49,6 +49,12 @@ DFANode.h
 D:/Projects/Compiler/Lexical_Analyzer/DFANode.h
 Token.h
 D:/Projects/Compiler/Lexical_Analyzer/Token.h
+string.h
+-
+Transition.h
+D:/Projects/Compiler/Lexical_Analyzer/Transition.h
+map
+-
 
 D:/Projects/Compiler/Lexical_Analyzer/Transition.h
 Node.h
