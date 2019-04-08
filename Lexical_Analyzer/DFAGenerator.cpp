@@ -2,16 +2,31 @@
 // Created by akrammoussa on 22/03/19.
 //
 
-#define EPSILON '!'
 #include <iostream>
 #include "DFAGenerator.h"
 #include<bits/stdc++.h>
 #include <queue>
 #include "Transition.h"
+char EPSILON[2] = "~";
 using namespace std;
 
-void fillInClosure(DFANode*,vector<Node *>){
+void fillInClosure(DFANode* node,vector<Node *> NFA){
     //todo after fixing the epsilon string
+    vector<int> tempNodeNameList =node->getNodeNameList();
+    for (int i = 0; i < tempNodeNameList.size(); ++i) {
+        Node* tempNode;
+        vector<int> listOfTransitions;
+        for (int j = 0; j < NFA.size(); ++j) {
+            if (NFA[j]->getName() == tempNodeNameList[i]) {
+                tempNode = NFA[j];
+                break;
+            }
+        }
+        for (int j = 0; j < tempNode->getEpslonClosure().size(); ++j) {
+            node->addToEpsilonClosure(tempNode->getEpslonClosure()[j]);
+        }
+    }
+
 }
 
 bool checkIfExists(vector<int> nameList , vector<DFANode *> DFA){
@@ -81,14 +96,13 @@ void DFAGenerator::initializeClosureLists(vector<Node *> NFA) {
         while (!stack.empty()) {
             Node * s = stack.top();
             stack.pop();
-            //vector<Node *>::iterator it = find(NFA.begin(), NFA.end(), s);
             int index = s->getName();
             if (!visited[index]) {
                 visited[index] = true;
                 NFA[i]->addToEpsilonClosure(index);
             }
             for (auto j = s->getTransition().begin(); j != s->getTransition().end(); ++j)
-                if (!visited[j.operator*().getNode()->getName()] && *(j.operator*().getInput()) == EPSILON)
+                if (!visited[j.operator*().getNode()->getName()] && *(j.operator*().getInput()) == EPSILON[0])
                     stack.push(j.operator*().getNode());
         }
     }
