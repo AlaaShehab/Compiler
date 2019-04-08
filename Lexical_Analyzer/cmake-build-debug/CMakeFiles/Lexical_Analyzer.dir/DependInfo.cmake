@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/DFAGenerator.cpp" "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.o"
-  "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/DFANode.cpp" "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.o"
-  "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/LexicalRuleParser.cpp" "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.o"
-  "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/Node.cpp" "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/Node.cpp.o"
-  "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/Transition.cpp" "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.o"
-  "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/main.cpp" "/home/akrammoussa/CLionProjects/Lexical-Analyzer/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/main.cpp.o"
+  "D:/Projects/Compiler/Lexical_Analyzer/DFAGenerator.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.obj"
+  "D:/Projects/Compiler/Lexical_Analyzer/DFANode.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj"
+  "D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.obj"
+  "D:/Projects/Compiler/Lexical_Analyzer/Node.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj"
+  "D:/Projects/Compiler/Lexical_Analyzer/Transition.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj"
+  "D:/Projects/Compiler/Lexical_Analyzer/main.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
