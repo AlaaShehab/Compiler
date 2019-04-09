@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj"
   "CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj"
   "CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.obj"
+  "CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.obj"
+  "CMakeFiles/Lexical_Analyzer.dir/Token.cpp.obj"
   "CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.obj"
   "Lexical_Analyzer.pdb"
   "Lexical_Analyzer.exe"

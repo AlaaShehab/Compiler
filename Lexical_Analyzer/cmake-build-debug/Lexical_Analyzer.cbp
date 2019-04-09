@@ -106,6 +106,18 @@
 		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/Node.h">
 			<Option target="Lexical_Analyzer"/>
 		</Unit>
+		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/Token.cpp">
+			<Option target="Lexical_Analyzer"/>
+		</Unit>
+		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/Token.h">
+			<Option target="Lexical_Analyzer"/>
+		</Unit>
+		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/TokenGenerator.cpp">
+			<Option target="Lexical_Analyzer"/>
+		</Unit>
+		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/TokenGenerator.h">
+			<Option target="Lexical_Analyzer"/>
+		</Unit>
 		<Unit filename="D:/Projects/Compiler/Lexical_Analyzer/Transition.cpp">
 			<Option target="Lexical_Analyzer"/>
 		</Unit>

@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/Projects/Compiler/Lexical_Analyzer/DFANode.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj"
   "D:/Projects/Compiler/Lexical_Analyzer/LexicalRuleParser.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.obj"
   "D:/Projects/Compiler/Lexical_Analyzer/Node.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj"
+  "D:/Projects/Compiler/Lexical_Analyzer/Token.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/Token.cpp.obj"
+  "D:/Projects/Compiler/Lexical_Analyzer/TokenGenerator.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.obj"
   "D:/Projects/Compiler/Lexical_Analyzer/Transition.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj"
   "D:/Projects/Compiler/Lexical_Analyzer/main.cpp" "D:/Projects/Compiler/Lexical_Analyzer/cmake-build-debug/CMakeFiles/Lexical_Analyzer.dir/main.cpp.obj"
   )

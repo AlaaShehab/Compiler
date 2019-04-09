@@ -230,6 +230,60 @@ Node.cpp.s:
 	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Node.cpp.s
 .PHONY : Node.cpp.s
 
+Token.obj: Token.cpp.obj
+
+.PHONY : Token.obj
+
+# target to build an object file
+Token.cpp.obj:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Token.cpp.obj
+.PHONY : Token.cpp.obj
+
+Token.i: Token.cpp.i
+
+.PHONY : Token.i
+
+# target to preprocess a source file
+Token.cpp.i:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Token.cpp.i
+.PHONY : Token.cpp.i
+
+Token.s: Token.cpp.s
+
+.PHONY : Token.s
+
+# target to generate assembly for a file
+Token.cpp.s:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/Token.cpp.s
+.PHONY : Token.cpp.s
+
+TokenGenerator.obj: TokenGenerator.cpp.obj
+
+.PHONY : TokenGenerator.obj
+
+# target to build an object file
+TokenGenerator.cpp.obj:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.obj
+.PHONY : TokenGenerator.cpp.obj
+
+TokenGenerator.i: TokenGenerator.cpp.i
+
+.PHONY : TokenGenerator.i
+
+# target to preprocess a source file
+TokenGenerator.cpp.i:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.i
+.PHONY : TokenGenerator.cpp.i
+
+TokenGenerator.s: TokenGenerator.cpp.s
+
+.PHONY : TokenGenerator.s
+
+# target to generate assembly for a file
+TokenGenerator.cpp.s:
+	$(MAKE) -f CMakeFiles\Lexical_Analyzer.dir\build.make CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.s
+.PHONY : TokenGenerator.cpp.s
+
 Transition.obj: Transition.cpp.obj
 
 .PHONY : Transition.obj
@@ -305,6 +359,12 @@ help:
 	@echo ... Node.obj
 	@echo ... Node.i
 	@echo ... Node.s
+	@echo ... Token.obj
+	@echo ... Token.i
+	@echo ... Token.s
+	@echo ... TokenGenerator.obj
+	@echo ... TokenGenerator.i
+	@echo ... TokenGenerator.s
 	@echo ... Transition.obj
 	@echo ... Transition.i
 	@echo ... Transition.s

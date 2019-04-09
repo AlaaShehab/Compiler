@@ -121,9 +121,35 @@ CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.s"
 	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Projects\Compiler\Lexical_Analyzer\LexicalRuleParser.cpp -o CMakeFiles\Lexical_Analyzer.dir\LexicalRuleParser.cpp.s
 
+CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.obj: CMakeFiles/Lexical_Analyzer.dir/flags.make
+CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.obj: ../TokenGenerator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Lexical_Analyzer.dir\TokenGenerator.cpp.obj -c D:\Projects\Compiler\Lexical_Analyzer\TokenGenerator.cpp
+
+CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Projects\Compiler\Lexical_Analyzer\TokenGenerator.cpp > CMakeFiles\Lexical_Analyzer.dir\TokenGenerator.cpp.i
+
+CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Projects\Compiler\Lexical_Analyzer\TokenGenerator.cpp -o CMakeFiles\Lexical_Analyzer.dir\TokenGenerator.cpp.s
+
+CMakeFiles/Lexical_Analyzer.dir/Token.cpp.obj: CMakeFiles/Lexical_Analyzer.dir/flags.make
+CMakeFiles/Lexical_Analyzer.dir/Token.cpp.obj: ../Token.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Lexical_Analyzer.dir/Token.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Lexical_Analyzer.dir\Token.cpp.obj -c D:\Projects\Compiler\Lexical_Analyzer\Token.cpp
+
+CMakeFiles/Lexical_Analyzer.dir/Token.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lexical_Analyzer.dir/Token.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Projects\Compiler\Lexical_Analyzer\Token.cpp > CMakeFiles\Lexical_Analyzer.dir\Token.cpp.i
+
+CMakeFiles/Lexical_Analyzer.dir/Token.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lexical_Analyzer.dir/Token.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Projects\Compiler\Lexical_Analyzer\Token.cpp -o CMakeFiles\Lexical_Analyzer.dir\Token.cpp.s
+
 CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.obj: CMakeFiles/Lexical_Analyzer.dir/flags.make
 CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.obj: ../DFAGenerator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.obj"
 	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Lexical_Analyzer.dir\DFAGenerator.cpp.obj -c D:\Projects\Compiler\Lexical_Analyzer\DFAGenerator.cpp
 
 CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.i: cmake_force
@@ -141,6 +167,8 @@ Lexical_Analyzer_OBJECTS = \
 "CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj" \
 "CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj" \
 "CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.obj" \
+"CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.obj" \
+"CMakeFiles/Lexical_Analyzer.dir/Token.cpp.obj" \
 "CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.obj"
 
 # External object files for target Lexical_Analyzer
@@ -151,12 +179,14 @@ Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/Node.cpp.obj
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/Transition.cpp.obj
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/DFANode.cpp.obj
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/LexicalRuleParser.cpp.obj
+Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/TokenGenerator.cpp.obj
+Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/Token.cpp.obj
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/DFAGenerator.cpp.obj
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/build.make
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/linklibs.rsp
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/objects1.rsp
 Lexical_Analyzer.exe: CMakeFiles/Lexical_Analyzer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable Lexical_Analyzer.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Projects\Compiler\Lexical_Analyzer\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable Lexical_Analyzer.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Lexical_Analyzer.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
