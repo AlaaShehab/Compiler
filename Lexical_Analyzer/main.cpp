@@ -24,12 +24,6 @@ int main() {
     nfa.parseRules();
     map<string, int> map = nfa.getPriority();
 
-    char * c = "~";
-
-    if (c == EP) {
-        cout << "yeees";
-    }
-
    DFAGenerator dfa = DFAGenerator();
    dfa.initializeClosureLists(nfa.getAllAutomataNodes());
    dfa.generateDFATable(nfa.getAllAutomataNodes(), nfa.getAutomataInput(), nfa.getNFAstartNode());
