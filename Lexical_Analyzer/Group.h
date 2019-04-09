@@ -13,12 +13,22 @@ using namespace std;
 class Group {
 
 public:
-    void addState(int); // int indicate state name
+    Group(int);
+    //functions
+    void addState(DFANode*); // int indicate state name
     void setNext(int);  // int indicate Group name
- private:
+    bool contains(DFANode*);
+    bool isAcceptance();
+    bool isStart();
+    void setAcceptance();
+    void setStart();
+
+    //variables
     int name;
     vector<DFANode*> states;
     vector<int> nextGroups;
+    bool acceptor = false;
+    bool start = false;
 };
 
 
