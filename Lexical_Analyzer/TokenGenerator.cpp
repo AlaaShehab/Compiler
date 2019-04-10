@@ -37,7 +37,7 @@ void TokenGenerator::tokenizeCode(string fileName) {
     for (int i = 0; i < programCode.length(); i++) {
         transFound = false;
         //skip spaces and new lines;
-        if (programCode[i] == ' ' || programCode[i] == '\n') {
+        if (programCode[i] == ' ' || programCode[i] == '\n' || programCode[i] == '\t') {
             if (i != 0) {
                 concatError = setError(lastAcceptedChar, concatError);
             }
@@ -51,6 +51,7 @@ void TokenGenerator::tokenizeCode(string fileName) {
         for (int j = 0; j < transitions.size(); j++){
            if (findTransition(transitions[j], programCode[i])) {
                transFound = true;
+               char ch = programCode[i];
                current = (DFANode*)transitions[j].getNode();
                if (current->isAcceptor()) {
                    lastAcceptedChar = i;

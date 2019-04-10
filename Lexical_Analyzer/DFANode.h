@@ -18,6 +18,7 @@ public:
     const vector<int> getNodeNameList();
     vector<string> getTypesAccepted();
     void addToTypesAccepted(string);
+    void setTypesAccepted(vector<string>);
 
 
 private:

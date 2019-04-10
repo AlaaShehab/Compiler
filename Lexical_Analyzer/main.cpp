@@ -9,25 +9,30 @@
 #include "Transition.h"
 #include <set>
 #include <map>
-#include "TokenGenerator.h"
-#include "Token.h"
+#include "DFANode.h"
+#include "minimization.h"
 #include "DFAGenerator.h"
+#include "TokenGenerator.h"
+
 using namespace std;
-
-
 
 int main() {
 
-    char EP[2] = "~";
+
     LexicalRuleParser nfa;
-    nfa.readfile("D:\\Projects\\Compiler\\Lexical_Analyzer\\example.txt");
+    nfa.readfile("D:\\Projects\\Compiler\\Lexical_Analyzer\\grammar.txt");
     nfa.parseRules();
-    map<string, int> map = nfa.getPriority();
+    map<string, int> map1 = nfa.getPriority();
 
    DFAGenerator dfa = DFAGenerator();
    dfa.initializeClosureLists(nfa.getAllAutomataNodes());
-   dfa.generateDFATable(nfa.getAllAutomataNodes(), nfa.getAutomataInput(), nfa.getNFAstartNode());
+   vector<DFANode*> DFA= dfa.generateDFATable(nfa.getAllAutomataNodes(), nfa.getAutomataInput(), nfa.getNFAstartNode());
 
+    DFANode* start = DFA[0];
+
+
+    TokenGenerator generator = TokenGenerator(start, map1);
+    generator.tokenizeCode("D:\\Projects\\Compiler\\Lexical_Analyzer\\program.txt");
 
     return 0;
 }

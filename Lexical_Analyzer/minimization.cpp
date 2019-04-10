@@ -11,12 +11,15 @@
 #include "Transition.h"
 #include <string>
 #include <cstring>
+#include <map>
+#include "TokenGenerator.h"
 
 using namespace std;
 
-minimization::minimization(vector<DFANode*> nodes, vector<char> input) {
+minimization::minimization(vector<DFANode*> nodes, vector<char> input, map<string, int> map1) {
     minimization::dfaNodes = nodes;
     minimization::inputs = input;
+    minimization::map1 = map1;
 }
 
 void minimization::startMinimization() {
@@ -38,6 +41,7 @@ void minimization::startMinimization() {
     currentGroups.push_back(normalStates);
     currentGroups.push_back(accStates);
     minimize();
+    finalOutput();
 }
 
 void minimization::getCurrLevelGroups() {
@@ -59,6 +63,7 @@ void minimization::minimize() {
                 if (group->states.size() > 1) {
                     checkGroup(groupState);
                 } else {
+                    group->nextGroups.clear();
                     for (int i = 0; i < nexts.size(); i++) {
                         group->nextGroups.push_back(nexts[i]);
                     }
@@ -72,14 +77,13 @@ void minimization::minimize() {
             switchGroups();
         }
     }
-    print();
 }
 
 int minimization::getGroup(DFANode* node) {
     int j = 0;
     for(int i = 0; i < currentGroups.size(); i++) {
         if (currentGroups[i]->contains(node)) {
-            return j;
+            return currentGroups[i]->name;
         }
         j++;
     }
@@ -141,19 +145,19 @@ void minimization::print(){
         }
         cout << "\n";
     }
-    cout << "done";
 }
 
 void minimization::addGroupState(Group *group, int num) {
     nexts.clear();
     DFANode* groupState = group->states[num];
-    for(int k = 0; k < inputs.size() && (group->nextGroups.size() == 0); k++) {
+    for(int k = 0; k < inputs.size() && (group->nextGroups.size() >= 0); k++) {
         bool found = false;
         for(int tl = 0; tl < groupState->getTransition().size(); tl++) {
             Transition trans = groupState->getTransition()[tl];
             for (int t = 0 ; t < strlen(trans.getInput()) ; t++) {
                 if(trans.getInput()[t] == inputs[k]) {
-                    nexts.push_back(getGroup((DFANode *)trans.getNode()));
+                    int temp = getGroup((DFANode *)trans.getNode());
+                    nexts.push_back(temp);
                     found = true;
                 }
             }
@@ -166,13 +170,48 @@ void minimization::addGroupState(Group *group, int num) {
 
 }
 
-void minimization::finalOutput() {
-    /*//acceptor
-    vector<DFANode*> finalStates;
+DFANode* minimization::finalOutput() {
     for (int i = 0; i < nextGroups.size(); i++) {
-        DFANode* temp = new DFANode(to_string(nextGroups[i]->name), nextGroups[i]->name);
+        string type = nextGroups[i]->states[0]->getType();
+        DFANode* temp = new DFANode(type, nextGroups[i]->name);
         temp->setAcceptorNode(nextGroups[i]->isAcceptance());
         temp->setStartNode(nextGroups[i]->isStart());
-        // TODO fadl el part bta3 el transitions
-    }*/
+        temp->setTypesAccepted(nextGroups[i]->states[0]->getTypesAccepted());
+        finalStates.push_back(temp);
+    }
+    setTransitions();
+    DFANode* start = finalStates[0];
+
+    TokenGenerator generator = TokenGenerator(start, map1);
+    generator.tokenizeCode("D:\\Projects\\Compiler\\Lexical_Analyzer\\program.txt");
+    return start;
+}
+
+int minimization::getNextState(int groupNum, DFANode* node){
+    for (int i = 0; i < nextGroups.size(); ++i) {
+        if(nextGroups[i]->name == groupNum || nextGroups[i]->contains(node)){
+            return i;
+        }
+    }
+}
+
+void minimization::setTransitions(){
+    for (int i = 0; i < finalStates.size(); i++) {
+        int size = nextGroups[i]->states[0]->getTransition().size();
+        for (int j = 0, k = 0; k < nextGroups[i]->nextGroups.size()&& size > 0 && j < size; j++, k++) {
+            DFANode* node = (DFANode*)nextGroups[i]->states[0]->getTransition()[j].getNode();
+            DFANode* toState;
+            if (nextGroups[i]->states[0]->getTransition()[j].getInput()[0] != inputs[k]) {
+                toState = NULL;
+                j--;
+            } else {
+                toState = finalStates[getNextState(nextGroups[i]->nextGroups[k], node)];
+                char c[2];
+                c[0] = inputs[k];
+                c[1] = '\0';
+                finalStates[i]->addTransition(Transition(toState, c));
+            }
+
+        }
+    }
 }

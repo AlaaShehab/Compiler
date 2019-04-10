@@ -23,3 +23,7 @@ vector<string> DFANode::getTypesAccepted() {
 void DFANode::addToTypesAccepted(string name) {
     typesAccepted.push_back(name);
 }
+
+void DFANode::setTypesAccepted(vector<string> types) {
+    typesAccepted = types;
+}

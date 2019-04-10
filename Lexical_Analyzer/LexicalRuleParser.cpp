@@ -217,7 +217,7 @@ void LexicalRuleParser::buildDEAutomataGraph(string definition) {
             if (i-1 >= 0 && definition[i-1] == '\\') {
                 buildSingleAlnum(ch);
             }
-        } else if (ch == EPSILON[0] && i-1 >= 0&& definition[i - 1] == '\\') {
+        } else if (ch == 'L' && i-1 >= 0 && definition[i - 1] == '\\') {
             concatenate = false;
             buildSingleAlnum(EPSILON[0]);
         } else if (isalpha(ch)) {

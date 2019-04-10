@@ -152,6 +152,7 @@ vector<DFANode*>  DFAGenerator::generateDFATable(vector<Node *> NFA , vector<cha
             }
             char temp[2];
             temp[0] = inputs[i];
+            temp[1] = '\0';
             if (inputFound) {
                 if(!checkIfExists(newNode->getNodeNameList(),DFA)){
                     fillInClosure(newNode,NFA);
