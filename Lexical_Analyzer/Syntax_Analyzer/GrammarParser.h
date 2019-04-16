@@ -19,8 +19,19 @@ using namespace std;
 
 class GrammarParser {
 public :
+    void readFile(string);
+    void parseGrammar();
     set<string> getTerminals();
     map<string, NonTerminal*> getNonTerminals();
+
+private:
+    set<string> terminals;
+    map<string, NonTerminal*> nonTerminals;
+
+    vector<string> grammarRules;
+
+    void parseProduction(string);
+    string extractName(string);
 
 };
 

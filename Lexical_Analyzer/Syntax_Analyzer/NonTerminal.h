@@ -28,26 +28,30 @@ public:
     map<string, Production*> getParsingTable();
     set<string> getFirst();
     set<string> getFollow();
-    vector<Production> getProductions();
+    vector<Production*> getProductions();
+
+    void setEpsilon(bool);
 
     void addFirst(string);
     void addFollow(string);
-    void addProduction(Production);
+    void addProduction(Production*);
     void addToParsingTable(string, Production*);
 
     /*
      * Helping methods
      */
+    bool hasEpsilon();
     bool isInFirst(string);
     bool isInFollow(string);
     Production* getTableEntry(string);
 
 
 private:
+    bool epsilon;
     map<string, Production*> parsingTable;
     set<string> first;
     set<string> follow;
-    vector<Production> productions;
+    vector<Production*> productions;
 
     string name;
 
