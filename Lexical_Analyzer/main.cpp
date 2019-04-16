@@ -4,15 +4,15 @@
 #include <list>
 #include <regex>
 #include <stack>
-#include "Node.h"
-#include "LexicalRuleParser.h"
-#include "Transition.h"
+#include "Lexical/Node.h"
+#include "Lexical/LexicalRuleParser.h"
+#include "Lexical/Transition.h"
 #include <set>
 #include <map>
-#include "DFANode.h"
-#include "minimization.h"
-#include "DFAGenerator.h"
-#include "TokenGenerator.h"
+#include "Lexical/DFANode.h"
+#include "Lexical/minimization.h"
+#include "Lexical/DFAGenerator.h"
+#include "Lexical/TokenGenerator.h"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ int main() {
 
 
     LexicalRuleParser nfa;
-    nfa.readfile("D:\\Projects\\Compiler\\Lexical_Analyzer\\grammar.txt");
+    nfa.readfile("D:\\Projects\\Compiler\\Lexical_Analyzer\\Lexical\\grammar.txt");
     nfa.parseRules();
     map<string, int> map1 = nfa.getPriority();
 
@@ -32,7 +32,7 @@ int main() {
 
 
     TokenGenerator generator = TokenGenerator(start, map1);
-    generator.tokenizeCode("D:\\Projects\\Compiler\\Lexical_Analyzer\\program.txt");
+    generator.tokenizeCode("D:\\Projects\\Compiler\\Lexical_Analyzer\\Lexical\\program.txt");
 
     return 0;
 }
