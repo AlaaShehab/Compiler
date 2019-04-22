@@ -16,6 +16,8 @@ public:
     vector<string> getStrings();
     string getStringAt(int);
     void addStringToProduction(string);
+    int contains(string);
+
 private:
     vector<string> strings;
 

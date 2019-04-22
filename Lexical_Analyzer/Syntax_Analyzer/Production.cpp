@@ -19,3 +19,12 @@ string Production::getStringAt(int index) {
 vector<string> Production::getStrings() {
     return strings;
 }
+
+int Production::contains(string s) {
+    for (int i = 0; i < strings.size(); ++i) {
+        if (strings[i] == s) {
+            return i;
+        }
+    }
+    return -1;
+}

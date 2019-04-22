@@ -34,11 +34,11 @@ string NonTerminal::getName() {
     return name;
 }
 
-set<string> NonTerminal::getFirst() {
+set<string> NonTerminal::getFirstList() {
     return first;
 }
 
-set<string> NonTerminal::getFollow() {
+set<string> NonTerminal::getFollowList() {
     return follow;
 }
 

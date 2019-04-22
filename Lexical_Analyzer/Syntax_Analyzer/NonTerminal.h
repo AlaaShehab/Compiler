@@ -26,8 +26,8 @@ public:
      * Getters and setters
      */
     map<string, Production*> getParsingTable();
-    set<string> getFirst();
-    set<string> getFollow();
+    set<string> getFirstList();
+    set<string> getFollowList();
     vector<Production*> getProductions();
 
     void setEpsilon(bool);
