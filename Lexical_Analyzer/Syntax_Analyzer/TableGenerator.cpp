@@ -45,17 +45,17 @@ void TableGenerator::prepareAllTables(map<string, NonTerminal*> nonTerminals, se
             it->second->addToParsingTable(*it2, it->second->getProductions()[targetIndex]);
         }
     }
-    map<string, NonTerminal *>::iterator it;
+    map<string, NonTerminal *>::iterator itr;
     //loops on all nonterminals
-    for (it = nonTerminals.begin(); it != nonTerminals.end(); it++) {
-        if(it->second->hasEpsilon()) {
-            set<string> currentFollow = it->second->getFollowList();
+    for (itr = nonTerminals.begin(); itr != nonTerminals.end(); itr++) {
+        if(itr->second->hasEpsilon()) {
+            set<string> currentFollow = itr->second->getFollowList();
             set<string>::iterator it2;
             Production *epsilonProduction = new Production();
             for (it2 = currentFollow.begin(); it2 != currentFollow.end(); ++it2) {
                 //todo is nullptr catchable object or exception????
-                if(it->second->getTableEntry(*it2) == nullptr) {
-                    it->second->addToParsingTable(*it2, epsilonProduction);
+                if(itr->second->getTableEntry(*it2) == nullptr) {
+                    itr->second->addToParsingTable(*it2, epsilonProduction);
                 }
             }
         }
