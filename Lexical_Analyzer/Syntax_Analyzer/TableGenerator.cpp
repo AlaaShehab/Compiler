@@ -10,7 +10,7 @@ void TableGenerator::prepareAllTables(map<string, NonTerminal*> nonTerminals, se
     map<string, NonTerminal *>::iterator it;
     //loops on all nonterminals
     for (it = nonTerminals.begin(); it != nonTerminals.end(); it++) {
-        set<string> currentFirst = it->second->getFirst();
+        set<string> currentFirst = it->second->getFirstList();
         set<string>::iterator it2;
         //loops on all firsts in the first set
         for (it2 = currentFirst.begin(); it2 != currentFirst.end(); ++it2) {
@@ -31,7 +31,7 @@ void TableGenerator::prepareAllTables(map<string, NonTerminal*> nonTerminals, se
                             break;
                         } else {
                             //its non-terminal so check the first set of each string in product
-                            set<string> temp = nonTerminals.at(productions[i]->getStringAt(0 + k))->getFirst();
+                            set<string> temp = nonTerminals.at(productions[i]->getStringAt(0 + k))->getFirstList();
                             if (temp.find(*it2) != temp.end()) {
                                 targetIndex = i;
                                 break;
