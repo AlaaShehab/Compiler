@@ -93,6 +93,10 @@ void GrammarParser::parseProduction(string production) {
         terminals.insert(temp);
     }
     nonTerminals.insert(pair<string, NonTerminal*> (NonTerminalName, nonTerminal));
+    if (firstProductionSet) {
+        firstProduction = NonTerminalName;
+        firstProductionSet = false;
+    }
 
 }
 
@@ -111,4 +115,8 @@ map<string, NonTerminal*> GrammarParser::getNonTerminals() {
 
 set<string> GrammarParser::getTerminals() {
     return terminals;
+}
+
+string GrammarParser::getFirst() {
+    return firstProduction;
 }
