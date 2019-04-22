@@ -23,6 +23,8 @@ public :
     void parseGrammar();
     set<string> getTerminals();
     map<string, NonTerminal*> getNonTerminals();
+    //return first production
+    NonTerminal* getfirstNonTerminal();
 
 private:
     set<string> terminals;
@@ -32,6 +34,11 @@ private:
 
     void parseProduction(string);
     string extractName(string);
+
+    //first production
+    NonTerminal* firstNonTerminal;
+    bool firstProductionSet;
+
 
 };
 
