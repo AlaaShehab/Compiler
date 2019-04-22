@@ -34,6 +34,7 @@ void GrammarParser::readFile(string fileName) {
     } else {
         cout << "file cannot be opened" << endl;
     }
+    firstProductionSet = true;
 }
 
 void GrammarParser::parseGrammar() {
@@ -93,10 +94,12 @@ void GrammarParser::parseProduction(string production) {
         terminals.insert(temp);
     }
     nonTerminals.insert(pair<string, NonTerminal*> (NonTerminalName, nonTerminal));
+
     if (firstProductionSet) {
-        firstProduction = NonTerminalName;
+        firstNonTerminal = nonTerminal;
         firstProductionSet = false;
     }
+
 
 }
 
@@ -117,6 +120,6 @@ set<string> GrammarParser::getTerminals() {
     return terminals;
 }
 
-string GrammarParser::getFirst() {
-    return firstProduction;
+NonTerminal* GrammarParser::getfirstNonTerminal() {
+    return firstNonTerminal;
 }
