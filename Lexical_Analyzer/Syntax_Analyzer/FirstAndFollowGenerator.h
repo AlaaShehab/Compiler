@@ -13,6 +13,7 @@
 #include <set>
 
 class FirstAndFollowGenerator {
+public:
 
     FirstAndFollowGenerator(map<string, NonTerminal*> nonTerminals, set<string>);
 
@@ -20,6 +21,8 @@ class FirstAndFollowGenerator {
 
     void getAllFirst();
     void getAllFollow();
+
+private:
     set<string> getFollow(NonTerminal*);
     set<string> getFirst(NonTerminal*);
 

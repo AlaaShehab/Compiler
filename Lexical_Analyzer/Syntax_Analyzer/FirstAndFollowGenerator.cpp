@@ -45,10 +45,12 @@ set<string> FirstAndFollowGenerator::getFirst(NonTerminal * nonTerminal) {
 }
 
 void FirstAndFollowGenerator::getAllFollow() {
-    nonTerminals[0]->addFollow("$");
+    //nonTerminals[0]->addFollow("$");
     map<string, NonTerminal*>::iterator it;
+    it = nonTerminals.begin();
+    it->second->addFollow("$");
     for ( it = nonTerminals.begin(); it != nonTerminals.end(); it++ ) {
-        if(it->second->getFollowList().size()==0) {
+        if( it == nonTerminals.begin() || it->second->getFollowList().size()==0 ) {
             getFollow(it->second);
         }
     }
@@ -57,7 +59,7 @@ void FirstAndFollowGenerator::getAllFollow() {
 
 set<string> FirstAndFollowGenerator::getFollow(NonTerminal * nonTerminal) {
 
-    if (nonTerminal->getFollowList().size()!=0){
+    if (nonTerminal->getFollowList().size()!=0 && !(nonTerminal->getFollowList().size() == 1 && nonTerminal->getFollowList().find("$") != nonTerminal->getFollowList().end())){
         return nonTerminal->getFollowList();
     }
     map<string, NonTerminal*>:: iterator it;
