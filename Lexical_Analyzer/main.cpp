@@ -18,6 +18,8 @@
 #include "Syntax_Analyzer/NonTerminal.h"
 #include "Syntax_Analyzer/GrammarParser.h"
 #include "Syntax_Analyzer/FirstAndFollowGenerator.h"
+#include "Syntax_Analyzer/TableGenerator.h"
+#include "Syntax_Analyzer/ConvertGrammar.h"
 
 using namespace std;
 
@@ -50,9 +52,17 @@ int main() {
     set<string> terminals = parser.getTerminals();
     map<string, NonTerminal*> nonTerminals = parser.getNonTerminals();
 
+    ConvertGrammar converter = ConvertGrammar(nonTerminals, terminals);
+    nonTerminals = converter.convert();
+
     FirstAndFollowGenerator firstNfollow = FirstAndFollowGenerator(nonTerminals, terminals);
     firstNfollow.getAllFirst();
     firstNfollow.getAllFollow();
+
+    TableGenerator table = TableGenerator();
+    table.prepareAllTables(nonTerminals, terminals);
+
+
 
     return 0;
 }
