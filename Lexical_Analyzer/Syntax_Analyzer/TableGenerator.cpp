@@ -17,11 +17,19 @@ void TableGenerator::prepareAllTables(map<string, NonTerminal*> nonTerminals, se
             vector<Production *> productions = it->second->getProductions();
             //loops on productions
             int targetIndex;
+            bool found = false;
             for (int i = 0; i < productions.size(); i++) {
+                if(found == true) {
+                    continue;
+                }
                 //todo replace with bassant's function -- islam
                 if (productions[i]->getStringAt(0) == *it2) {
                     targetIndex = i;
+                    found = true;
                 } else {
+                    if(terminals.find(productions[i]->getStringAt(0)) != terminals.end()) {
+                        continue;
+                    }
                     int k = 0;
                     bool start = true;
                     while (nonTerminals.at(productions[i]->getStringAt(0 + k))->hasEpsilon() == true || start == true) {
@@ -34,9 +42,21 @@ void TableGenerator::prepareAllTables(map<string, NonTerminal*> nonTerminals, se
                             set<string> temp = nonTerminals.at(productions[i]->getStringAt(0 + k))->getFirstList();
                             if (temp.find(*it2) != temp.end()) {
                                 targetIndex = i;
+                                found = true;
                                 break;
                             } else {
                                 k++;
+                                if(k >= productions[i]->getStrings().size()) {
+                                    break;
+                                }
+                                if(terminals.find(productions[i]->getStringAt(0 + k)) != terminals.end() ) {
+                                    if(*it2 == productions[i]->getStringAt(0 + k)) {
+                                        found = true;
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
