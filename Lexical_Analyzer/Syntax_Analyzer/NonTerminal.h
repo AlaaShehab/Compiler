@@ -44,6 +44,7 @@ public:
     bool isInFirst(string);
     bool isInFollow(string);
     Production* getTableEntry(string);
+    Production* removePreduction(int);
 
 
 private:
@@ -52,6 +53,8 @@ private:
     set<string> first;
     set<string> follow;
     vector<Production*> productions;
+
+    Production* cloneProduction(int);
 
     string name;
 

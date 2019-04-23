@@ -72,3 +72,18 @@ bool NonTerminal::isInFollow(string f) {
 bool NonTerminal::hasEpsilon() {
     return epsilon;
 }
+
+Production* NonTerminal::removePreduction(int index) {
+    return cloneProduction(index);
+}
+
+Production* NonTerminal::cloneProduction(int index) {
+    Production* p = new Production();
+    Production* temp = productions[index];
+    vector<string> pStrings = temp->getStrings();
+    for (int i = 0; i < pStrings.size(); i++) {
+        p->addStringToProduction(pStrings[i]);
+    }
+    productions.erase(productions.begin() + index - 1);
+    return p;
+}

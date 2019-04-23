@@ -17,6 +17,7 @@ FirstAndFollowGenerator::FirstAndFollowGenerator(map<string, NonTerminal*> NonTe
 void FirstAndFollowGenerator::getAllFirst() {
     map<string, NonTerminal*>::iterator it;
     for ( it = nonTerminals.begin(); it != nonTerminals.end(); it++ ) {
+        NonTerminal * n = it->second;
         getFirst(it->second);
     }
 }
