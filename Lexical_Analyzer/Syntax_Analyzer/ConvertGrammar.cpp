@@ -18,8 +18,8 @@ ConvertGrammar::ConvertGrammar(map<string, NonTerminal *> nonTerminals, set<stri
 
 map<string, NonTerminal*> ConvertGrammar::convert() {
    leftFactor();
-   // removeLeftRecursion();
-    return nonTerminals;
+   removeLeftRecursion();
+   return nonTerminals;
 }
 
 //TODO condition of break is wrong
@@ -29,14 +29,16 @@ void ConvertGrammar::leftFactor() {
         vector<Production*> productions = itr->second->getProductions();
         //just for debug
         NonTerminal* nonT = itr->second;
-        bool nochange = true;
-        int previousSize = productions.size();
-        while (nochange || productions.empty()) {
+        bool nochange = false;
+        int loop = productions.size();
+        while (!nochange && !productions.empty()) {
             vector<Production*> temp;
             temp.push_back(itr->second->removePreduction(0));
-            for (int i = 1; i < productions.size(); i++) {
+            productions = itr->second->getProductions();
+            for (int i = 0; i < itr->second->getProductions().size(); i++) {
                 if (productions[i]->getStringAt(0) == temp[0]->getStringAt(0)) {
                     temp.push_back(itr->second->removePreduction(i));
+                    productions = itr->second->getProductions();
                 }
             }
             string newNonTerminalName = temp[0]->getStringAt(0) + "1";
@@ -66,15 +68,41 @@ void ConvertGrammar::leftFactor() {
                 itr->second->addProduction(temp[0]);
             }
 
-
-            if (previousSize == productions.size()) {
-                nochange = false;
+            loop--;
+            if (loop == 0) {
+                nochange = true;
             }
-            previousSize = productions.size();
+            productions = itr->second->getProductions();
         }
     }
 }
 
 void ConvertGrammar::removeLeftRecursion() {
+    map<string, NonTerminal *>::iterator itr;
+    for (itr = nonTerminals.begin(); itr != nonTerminals.end(); itr++) {
+
+        vector<Production*> productions = itr->second->getProductions();
+        for (int i = 0; i < productions.size(); i++) {
+
+            if (itr->first == productions[i]->getStringAt(0)) {
+                string newNonTerminalName = itr->first + "2";
+                Production* p = itr->second->removePreduction(i);
+                productions = itr->second->getProductions();
+                for (int j = 0; j < productions.size(); j++) {
+                    itr->second->addStringToProductionI(j, newNonTerminalName);
+                }
+                NonTerminal* n = new NonTerminal(newNonTerminalName);
+                n->setEpsilon(true);
+                Production* p1 = new Production();
+                for (int k = 1; k < p->getStrings().size(); k++) {
+                    p1->addStringToProduction(p->getStringAt(k));
+                }
+                p1->addStringToProduction(newNonTerminalName);
+                n->addProduction(p1);
+                nonTerminals.insert(pair<string, NonTerminal*>(newNonTerminalName, n));
+                break;
+            }
+        }
+    }
 
 }

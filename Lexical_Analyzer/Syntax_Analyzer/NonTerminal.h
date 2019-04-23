@@ -37,6 +37,7 @@ public:
     void addProduction(Production*);
     void addToParsingTable(string, Production*);
 
+
     /*
      * Helping methods
      */
@@ -45,6 +46,7 @@ public:
     bool isInFollow(string);
     Production* getTableEntry(string);
     Production* removePreduction(int);
+    void addStringToProductionI(int, string);
 
 
 private:

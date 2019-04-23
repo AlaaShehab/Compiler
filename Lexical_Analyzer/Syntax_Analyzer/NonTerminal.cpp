@@ -84,6 +84,10 @@ Production* NonTerminal::cloneProduction(int index) {
     for (int i = 0; i < pStrings.size(); i++) {
         p->addStringToProduction(pStrings[i]);
     }
-    productions.erase(productions.begin() + index - 1);
+    productions.erase(productions.begin() + index);
     return p;
+}
+
+void NonTerminal::addStringToProductionI(int index, string s) {
+    productions[index]->addStringToProduction(s);
 }
