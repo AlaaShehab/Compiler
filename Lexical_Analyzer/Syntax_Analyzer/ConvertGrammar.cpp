@@ -22,7 +22,6 @@ map<string, NonTerminal*> ConvertGrammar::convert() {
     return nonTerminals;
 }
 
-//TODO remove epsilon from original
 //TODO condition of break is wrong
 void ConvertGrammar::leftFactor() {
     map<string, NonTerminal *>::iterator itr;
