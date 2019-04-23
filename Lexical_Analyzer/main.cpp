@@ -55,6 +55,17 @@ int main() {
     ConvertGrammar converter = ConvertGrammar(nonTerminals, terminals);
     nonTerminals = converter.convert();
 
+
+    map<string, NonTerminal *>::iterator itr;
+    for (itr = nonTerminals.begin(); itr != nonTerminals.end(); itr++) {
+        cout <<itr->first << endl;
+        for (int i = 0; i < itr->second->getProductions().size();i++) {
+            for (int j = 0; j < itr->second->getProductions()[i]->getStrings().size(); j++) {
+                cout << itr->second->getProductions()[i]->getStringAt(j) << " ";
+            }
+            cout << endl;
+        }
+    }
     FirstAndFollowGenerator firstNfollow = FirstAndFollowGenerator(nonTerminals, terminals);
     firstNfollow.getAllFirst();
     firstNfollow.getAllFollow();
